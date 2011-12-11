@@ -1,0 +1,27 @@
+Computación Gráfica - Tarea 1
+=============================
+
+Integrantes:
+
+	- Cristián Maureira F.
+	- Gabriel Zamora N.
+
+Agregación de figura:
+
+	En la función DisplaySnoopy, se calculan 4 valores, que corresponden a las posiciones
+ mínimas y máximasi (minx, maxx, miny, maxy), establecidas por los puntos leídos desde el archivo de entrada.
+Una vez leidos todos los puntos, se dibujan segmentos de lineas utilizando dichos puntos, estebleciendo un 
+rectángulo alrededor de Snoopy, con un margen determinado.
+
+Mantención de aspecto:
+
+	Dependiendo de los ajustes que se realizan a la ventana, se calculan factores verticales como horizontales,
+ dados por los tamaños width y height, pasados a la funcion myReshape, dependiendo de si width es mayor o no a height, 
+se establecen los factores, los cuales son utilizados al momento de establecer las dimensiones de la matriz de proyección
+con gluOrtho2D
+
+Parámetros de Makefile:
+
+	Se pasan por parametros al compilador gcc, las bibliotecas necesarias para trabajar sobre OpenGL utilizando GLUT,
+donde sería suficiente -lglut, ya que ésta incluye a las bibliotecas referenciadas por -lGLU y -lGL. Además se utiliza 
+la bilioteca estándar de C++, la cual no se utiliza.
