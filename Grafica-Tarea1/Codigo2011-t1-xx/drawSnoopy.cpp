@@ -19,6 +19,7 @@ GLsizei swh = 400;
 GLsizei sww = 400;
 GLfloat xgs = 1, ygs = 1,xgp = 0, ygp = 0; //Global Scale and Global Position for Moving Snoopy
 GLfloat xs = 1, ys = 1; //Global Scale for Static Snoopy
+// Aspect ratio variables to mantain the image proportion
 GLdouble aspect_ratio_w = 1.0;
 GLdouble aspect_ratio_h = 1.0;
 
@@ -34,11 +35,11 @@ bool existeArchivo(string nombreArchivo)
 }
 
 
-/* DisplaySnoopy(width scale, 
- *		height scale, 
- *		x position, 
+/* DisplaySnoopy(width scale,
+ *		height scale,
+ *		x position,
  *		y position
- * ) */ 
+ * ) */
 void DisplaySnoopy(GLfloat xls, GLfloat yls, GLfloat xlp, GLfloat ylp)
 {
 	char lineFill;
@@ -60,6 +61,7 @@ void DisplaySnoopy(GLfloat xls, GLfloat yls, GLfloat xlp, GLfloat ylp)
 		{
 			datos >> xj >> yj;
 			glVertex2f(xj, yj);
+            // Searching the minimum and maximun values of x and y
 			if (xj < minx)
 				minx = xj;
 			else if (xj > maxx)
@@ -73,7 +75,7 @@ void DisplaySnoopy(GLfloat xls, GLfloat yls, GLfloat xlp, GLfloat ylp)
 	} while((xj = datos.get()) != EOF);
 
 	/*
-	 * Dibujado de rectangulo alrededor de Snoopy
+	 * Drawing a rectangle around Snoopy
 	 */
 	glBegin(GL_LINE_STRIP);
 		glVertex2f(minx-5, maxy+5);
@@ -90,8 +92,9 @@ void DisplaySnoopy(GLfloat xls, GLfloat yls, GLfloat xlp, GLfloat ylp)
 int staticS;
 
 void displays(void)
-{	
+{
 	glMatrixMode(GL_MODELVIEW);
+    // Adding the aspect ratio variables to the projection matrix definition
 	gluOrtho2D(0.0, (GLdouble)sww * aspect_ratio_w, 0.0, (GLdouble)swh * aspect_ratio_h);
 	DisplaySnoopy((GLfloat)xs/2,(GLfloat)ys/2, (GLfloat)sww/4, (GLfloat)swh/4);
 	glutSwapBuffers();
@@ -120,6 +123,8 @@ void myReshape(int w, int h)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+    // Conditions to determine the new values of the aspect_ratio variables
+    //  The idea is change one every time that the other is changed.
 	if (w < h)
 	{
 		aspect_ratio_h = 1.0 /((float)w / h);
@@ -135,10 +140,10 @@ void myReshape(int w, int h)
 
 
 /*	Main Loop
-	Open window with initial window size, title bar, 
+	Open window with initial window size, title bar,
 	RGBA display mode, and handle input events.	*/
 int main(int argc, char** argv)
-{	
+{
 
 	glutInit(&argc,argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -146,11 +151,11 @@ int main(int argc, char** argv)
 	glutInitWindowPosition (50, 50); // window position on screen
 
 	staticS=glutCreateWindow("Static Snoopy");
-	
+
 	myinit();
-	glutDisplayFunc(displays); 
+	glutDisplayFunc(displays);
 	glutReshapeFunc(myReshape);
-	
+
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize	 (ww, wh);  // window size
 	glutInitWindowPosition (400, 50); // window position on screen
