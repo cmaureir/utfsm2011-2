@@ -74,7 +74,7 @@ void drawShapes()
 	int i=0;
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
-	glClear(GL_COLOR_BUFFER_BIT); 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 	glLoadIdentity();
 
 	for (i = 0; i < N; i++)
@@ -99,7 +99,7 @@ void reshape (int width, int height)
 int main (int argc, char **argv)
 { 
 	glutInit(&argc, argv);
-	glutInitDisplayMode (GLUT_SINGLE);
+	glutInitDisplayMode (GLUT_SINGLE | GLUT_DEPTH);
 	glutInitWindowSize (500, 500);
 	glutInitWindowPosition (0, 0);
 	glutCreateWindow ("Shapes");
@@ -115,5 +115,7 @@ int main (int argc, char **argv)
 
 	glutIdleFunc(drawShapes);
 	
+	glEnable(GL_DEPTH_TEST);
+
 	glutMainLoop();
 }
