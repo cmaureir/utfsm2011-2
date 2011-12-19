@@ -75,10 +75,10 @@ void drawShapes()
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-	glLoadIdentity();
 
 	for (i = 0; i < N; i++)
 	{
+		glLoadIdentity();
 		glColor3f(shapes[i].r,shapes[i].g,shapes[i].b);
 		glTranslatef(shapes[i].x, shapes[i].y, shapes[i].z);
 		glutSolidCube(shapes[i].size);
