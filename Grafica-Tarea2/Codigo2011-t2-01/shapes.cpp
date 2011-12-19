@@ -83,6 +83,7 @@ void drawShapes()
 		glTranslatef(shapes[i].x, shapes[i].y, shapes[i].z);
 		glutSolidCube(shapes[i].size);
 		glColor3f(0, 0, 0);
+		glLineWidth(2);
 		glutWireCube(shapes[i].size);
 	}
 
