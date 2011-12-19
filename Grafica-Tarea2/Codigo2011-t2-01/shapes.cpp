@@ -21,15 +21,15 @@ void addShape()
 {
 	shapes_number++;
 
-	shapes[shapes_number].x = 0.0f;
-	shapes[shapes_number].y = 0.0f;
-	shapes[shapes_number].z = -5.0f;
+	shapes[shapes_number-1].x = 0.0f;
+	shapes[shapes_number-1].y = 0.0f;
+	shapes[shapes_number-1].z = -5.0f;
 
-	shapes[shapes_number].r = (GLfloat)(rand() % 100) / 100.0f; 
-	shapes[shapes_number].g = (GLfloat)(rand() % 100) / 100.0f;
-	shapes[shapes_number].b = (GLfloat)(rand() % 100) / 100.0f;
+	shapes[shapes_number-1].r = (GLfloat)(rand() % 100) / 100.0f; 
+	shapes[shapes_number-1].g = (GLfloat)(rand() % 100) / 100.0f;
+	shapes[shapes_number-1].b = (GLfloat)(rand() % 100) / 100.0f;
 
-	shapes[shapes_number].size = 1.0f;
+	shapes[shapes_number-1].size = 1.0f;
 }
 
 void keys(unsigned char key, int x, int y)
@@ -80,8 +80,10 @@ void drawShapes()
 	for (i = 0; i < N; i++)
 	{
 		glColor3f(shapes[i].r,shapes[i].g,shapes[i].b);
-		glTranslatef(shapes[i].x, shapes[i].y, shapes[i].z); 
+		glTranslatef(shapes[i].x, shapes[i].y, shapes[i].z);
 		glutSolidCube(shapes[i].size);
+		glColor3f(0, 0, 0);
+		glutWireCube(shapes[i].size);
 	}
 
 	glFlush();
