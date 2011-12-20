@@ -6,7 +6,8 @@
 
 int shapes_number = 0;
 
-struct shapes
+enum shapeTypes {cube = 1, sphere, cone, torus, teapot} type;
+struct shape
 {
 	GLfloat x;
 	GLfloat y;
@@ -15,21 +16,25 @@ struct shapes
 	GLfloat g;
 	GLfloat b;
 	GLfloat size;
+	enum shapeTypes type; 
 } shapes[N];
 
-void addShape()
+void addShape(enum shapeTypes type)
 {
 	shapes_number++;
 
 	shapes[shapes_number-1].x = 0.0f;
 	shapes[shapes_number-1].y = 0.0f;
-	shapes[shapes_number-1].z = -5.0f;
+	shapes[shapes_number-1].z = -10.0f;
 
 	shapes[shapes_number-1].r = (GLfloat)(rand() % 100) / 100.0f; 
 	shapes[shapes_number-1].g = (GLfloat)(rand() % 100) / 100.0f;
 	shapes[shapes_number-1].b = (GLfloat)(rand() % 100) / 100.0f;
 
 	shapes[shapes_number-1].size = 1.0f;
+
+	shapes[shapes_number-1].type = type;
+
 }
 
 void keys(unsigned char key, int x, int y)
@@ -60,8 +65,20 @@ void keys(unsigned char key, int x, int y)
 		case 'S':
 			shapes[shapes_number-1].size += 0.1f;
 			break;
-		case 'a': // Add a new shape!
-			addShape();
+		case '1':
+			addShape(cube);
+			break;
+		case '2':
+			addShape(sphere);
+			break;
+		case '3':
+			addShape(cone);
+			break;
+		case '4':
+			addShape(torus);
+			break;
+		case '5':
+			addShape(teapot);
 			break;
 		case 27: // Exit
 			exit(0);
@@ -81,10 +98,25 @@ void drawShapes()
 		glLoadIdentity();
 		glColor3f(shapes[i].r,shapes[i].g,shapes[i].b);
 		glTranslatef(shapes[i].x, shapes[i].y, shapes[i].z);
-		glutSolidCube(shapes[i].size);
-		glColor3f(0, 0, 0);
-		glLineWidth(2);
-		glutWireCube(shapes[i].size);
+
+		switch(shapes[i].type)
+		{
+			case cube:
+				glutSolidCube(shapes[i].size);
+				break;
+			case sphere:
+				glutSolidSphere(shapes[i].size/2, 100*shapes[i].size, 100*shapes[i].size);
+				break;
+			case cone:
+				glutSolidCone(shapes[i].size/2, shapes[i].size*3, 100*shapes[i].size, 100*shapes[i].size);
+				break;
+			case torus:
+				glutSolidTorus(shapes[i].size/8, shapes[i].size/2, 100*shapes[i].size, 100*shapes[i].size);
+				break;
+			case teapot:
+				glutSolidTeapot(shapes[i].size);
+				break;
+		}
 	}
 
 	glFlush();
@@ -103,12 +135,12 @@ int main (int argc, char **argv)
 { 
 	glutInit(&argc, argv);
 	glutInitDisplayMode (GLUT_SINGLE | GLUT_DEPTH);
-	glutInitWindowSize (500, 500);
+	glutInitWindowSize (640, 480);
 	glutInitWindowPosition (0, 0);
 	glutCreateWindow ("Shapes");
 
 	// Creating first shape!
-	addShape();
+	addShape(cube);
 
 	glutDisplayFunc(drawShapes);
 	
