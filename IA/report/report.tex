@@ -1,0 +1,95 @@
+%\documentclass[letter, 10pt]{elsart}
+\documentclass[preprint,authoryear,12pt]{elsarticle}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{algorithmic}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{color}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+\lstset{ frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.2cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.1cm,
+     framesep=0pt,
+     rulesep=.3pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     %
+     stringstyle=\ttfamily,
+     showstringspaces = false,
+     basicstyle=\scriptsize\ttfamily,
+     commentstyle=\color{gray45},
+     keywordstyle=\bfseries,
+     %
+%     numbers=left,
+%     numbersep=12pt,
+%     numberstyle=\tiny,
+%     numberfirstline = false,
+     breaklines=true,
+   }
+
+% minimizar fragmentado de listados
+\lstnewenvironment{listing}[1][]
+   {\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+\lstdefinestyle{consola}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+   }
+
+\lstdefinestyle{C}
+   {language=C,
+   }
+
+%\pagestyle{empty}
+\begin{document}
+\begin{frontmatter}
+
+\title{A revision of the Strip Packing problem}
+\author[utfsm]{Cristián D. Maureira Fredes\corref{cor}}
+\ead{cmaureir@inf.utfsm.cl}
+
+\cortext[cor]{Principal Corresponding Author}
+
+\address[utfsm]{Departamento de Informática, Universidad Técnica Federico Santa María, Av. España 1680, Valparaiso, Chile}
+\date{\today}
+
+\begin{abstract}
+In the present work,
+we will perform a brief review of some current proposals
+which aims to solve more effectively the strip-packing problem.
+\end{abstract}
+
+\begin{keyword}
+Strip Packing\sep Optimization
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}
+\label{introduction}
+\input{src/introduction}
+
+
+\section{State of Art}
+\label{stateofart}
+\input{src/stateofart}
+
+
+\section{Conclusions and Future Work}
+\label{conclusions}
+\input{src/conclusions}
+
+%\bibliographystyle{splncs03}
+%\bibliography{report}
+
+\end{document}
