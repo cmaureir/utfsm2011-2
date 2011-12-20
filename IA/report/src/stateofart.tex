@@ -1,19 +1,90 @@
-"A squeaky wheel optimisation methodology for two dimensional strip packing"
+Today, there are numerous papers around the
+strip-packing problem, which implies that is not possible
+to consider all of them, including all the meta-heuristics,
+and heuristics methods.
 
-Problema:
-    - Wäscher et al 2007
-    - 2D orthogonal open dimension problem.
-    - Not using piece rotations
-    - Guillotine cuts are not required
-    - referenciado como el subtipo "Oriented, Free cutting" (OF)    Lodi et. al (1999) Bortfeldt (2006).
+A complete compendium of the most representative
+solution to the present problem can be found in the work
+presented in Hooper (2000)\cite{hooper},
+additionally the work presented by Riff et al. (2004)\cite{riff},
+show a brief and simple analysis of some important
+papers between both published dates.
 
-    -Conceptos del best-fit
-        -new piece in the lowest available slot, structure update.
-Objetivo
-    -simple y efectiva methodology, basada en squeakly wheel optimisation,
-        identificar dificiles construyendo soluciones,
+This section aims to collect some actual good approaches
+to solve the strip-packing problem.
 
-----
 
-Macedo
+\subsection{Based on best-fit heuristic}
 
+In the work presented by Burke et al. (2010)~\cite{burke}
+a new methodology was presented which modify the
+way to determine the penalization of each item position.
+
+The base methodology is find the difficult items (high penalty),
+and use them first, leaving the easiest items (low penalty)
+positioning, to the end of the algorithm.
+
+The algorithm search the item positions which break bound
+constraints and assign it a penalization based on the existing
+penalization plus the size of the height (considering filling the space
+from above).
+
+% "A squeaky wheel optimisation methodology for two dimensional strip packing"
+%
+% Problema:
+%     - Wäscher et al 2007
+%     - 2D orthogonal open dimension problem.
+%     - Not using piece rotations
+%     - Guillotine cuts are not required
+%     - referenciado como el subtipo "Oriented, Free cutting" (OF)    Lodi et. al (1999) Bortfeldt (2006).
+%
+%     -Conceptos del best-fit
+%         -new piece in the lowest available slot, structure update.
+% Objetivo
+%     -simple y efectiva methodology, basada en squeakly wheel optimisation,
+%         identificar dificiles construyendo soluciones,
+
+\subsection{Non-based on bottom-left heuristic}
+
+
+
+
+\subsection{Exact methods}
+
+
+One of the exact methods to solve the strip-packing problem,
+is the branch and bound approach,
+which only consider solutions using all the necessary items
+to fill the entire space.
+The idea behind this approach, is solve the situations when
+is not possible to add a new item in the space,
+without generate an empty space (hole),
+so the algorithm start to cut branches.
+
+In the presented work by Alvarez-Valdes et al. (2009)\cite{alvarez},
+the focus is over add new conditions to the strips,
+to be able to generate better solutions,
+also reduces the problem to different knapsack problems using the slides,
+before apply the lower bounds.
+Almost all the main ideas of the implementations,
+are based on the work presented by Martello et al.(2003)\cite{martello},
+chiefly the idea of use computed lower bound,
+relaxing some constraints of the items surface,
+dividing each item in slides to search solutions
+more easily, but also considering that at the end of the algorithm,
+is essential to join all the slides of the different items.
+
+
+
+
+
+
+
+
+% "A branch and bound algorithm for the strip packing problem"
+% 
+% - Desarrollan lower bounds basados in formuationes de relajaciones enteras
+% - Basan la mayoria del algoritmo (structure of the search tree) de Martello et al 2003
+% - Proponen nuevas lower bounds
+% - Primer se aplica la reducción (utilizan GRASP para ver si las piezas caben en un rectangulo)
+% - Despues terminan las tiras y piezas para resolver un problema de la mochila (knapsack)

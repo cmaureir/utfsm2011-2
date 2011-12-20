@@ -9,6 +9,6 @@ clean:
 	@rubber --clean --pdf $(TEX:.tex=)
 	@rm -f *.{vrb,out,spl}
 x:
-	@okular $(PDF)
+	@okular $(PDF) &> /dev/null &
 .PHONY: pdf clean
 
