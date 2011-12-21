@@ -13,8 +13,9 @@ papers between both published dates.
 This section aims to collect some actual good approaches
 to solve the strip-packing problem.
 
+\subsection{Heuristics}
 
-\subsection{Based on best-fit heuristic}
+\subsubsection{Based on best-fit heuristic}
 
 In the work presented by Burke et al. (2010)~\cite{burke}
 a new methodology was presented which modify the
@@ -44,13 +45,33 @@ from above).
 %     -simple y efectiva methodology, basada en squeakly wheel optimisation,
 %         identificar dificiles construyendo soluciones,
 
-\subsection{Non-based on bottom-left heuristic}
+\subsection{Metaheuristics}
 
+\subsubsection{Non-based on bottom-left heuristic}
+
+There are some publications which provides a very clever
+approach to solve this problem.
+When a researcher start to think in a new method for
+solving any optimization problem, take as basis
+the best results in the literature,
+but in some cases, the authors think in a whole new way
+to find a solution, which is the case of Neveu et al.(2008)~\cite{neveu},
+that provide a method starting from one of the most critic
+issues solving the problem, the blank-spaces.
+
+In the literature is possible to find methods to avoid
+this blank-spaces (holes), re-adjusting the pieces,
+or adding a penalization, but this works presented the
+idea of maintain a set of maximizes blank-spaces in the
+process of adding new items.
+The key, is that maintaining blank-spaces allows the
+algorithm to not modify the entire solution when a item
+is removed, reducing this algorithm cost,
+which in other cases is a critical factor.
 
 
 
 \subsection{Exact methods}
-
 
 One of the exact methods to solve the strip-packing problem,
 is the branch and bound approach,
@@ -73,12 +94,6 @@ relaxing some constraints of the items surface,
 dividing each item in slides to search solutions
 more easily, but also considering that at the end of the algorithm,
 is essential to join all the slides of the different items.
-
-
-
-
-
-
 
 
 % "A branch and bound algorithm for the strip packing problem"
