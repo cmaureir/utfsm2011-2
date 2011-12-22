@@ -93,7 +93,7 @@ void drawShapes()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 
-	for (i = 0; i < N; i++)
+	for (i = 0; i < shapes_number; i++)
 	{
 		glLoadIdentity();
 		glColor3f(shapes[i].r,shapes[i].g,shapes[i].b);
