@@ -7,10 +7,10 @@ Integrantes:
 	- Javier Olivares O.
 	- Gabriel Zamora N.
 
-La estructura shape contiene los distintos parametros
-que permitiran el movimiento de los objetos en el 
-eje x, y, z, ademas de variables que contienen el valor
-de los colores en RGB y el temaño de la misma. Se utilizo
+La estructura shape contiene los distintos parámetros
+que permitirán el movimiento de los objetos en el 
+eje x, y, z, además de variables que contienen el valor
+de los colores en RGB y el tamaño de la misma. Se utilizo
 como limite N estructuras shape, con N= 100. Las posibles
 figuras a agregar son: cubo, esfera, cono, toroide, tetera.
 Para agregar una figura escribir numero 1 para cubo, 2 para
