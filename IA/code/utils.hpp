@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <ctime>
 #include <cstdlib>
 #include <boost/program_options.hpp>
 

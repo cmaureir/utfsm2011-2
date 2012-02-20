@@ -75,8 +75,8 @@ bool check_flags(int argc, char *argv[], string &path){
 
     if (vm.count("input")) {
         path = vm["input"].as<std::string>();
-        cout << "Using directory: " << path << endl;
-    } else { cout << "You must set the «data directory»" << endl; cout << desc << endl; return false;}
+        cout << "Using input file: " << path << endl;
+    } else { cout << "You must set the «input file»" << endl; cout << desc << endl; return false;}
 
 
     return true;
