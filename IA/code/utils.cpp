@@ -4,6 +4,7 @@ void read_input_file(string path){
     ifstream file(path.c_str());
     string value;
     int line_number = 0;
+    strip_height=0;
     box tmp;
     while (file.good())
     {
@@ -34,7 +35,7 @@ void read_input_file(string path){
             {
                 strip_width = atoi(value.c_str());
             }
-
+            strip_height += tmp.height;
             bs.push_back(tmp);
         }
 

@@ -1,5 +1,5 @@
-#include "utils.cpp"
-#include "scattersearch.cpp"
+#include "utils.hpp"
+#include "scattersearch.hpp"
 
 int main(int argc, char *argv[]) {
 
@@ -14,13 +14,14 @@ int main(int argc, char *argv[]) {
     // Algorithm
 
     solutions_generation();
-    print_solutions(sols);
     fitness_calculation(sols);
-    //print_solutions();
-    return 0;
+    print_solutions(sols);
     solutions_improvment();
     refset_build();
+    cout << endl;
+    print_solutions(refset);
     initialize();
+    return 0;
 
     do {
         // nuevas soluciones en RefSet y Núm. función de evaluación < MaxEval

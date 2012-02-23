@@ -1,20 +1,15 @@
 CXX = g++
-CXXFLAGS = -Wall -lboost_program_options
-
-BIN =  utils scattersearch sp
+CXXFLAGS = -Wall
+LDFLAGS = -lboost_program_options
+BIN =  utils.o scattersearch.o sp
 
 all: $(BIN)
-
-utils: utils.cpp utils.hpp
-	g++ -c utils.cpp $(CXXFLAGS)
-
-scattersearch: scattersearch.cpp scattersearch.hpp
-	g++ -c scattersearch.cpp $(CXXFLAGS)
-
+utils.o: utils.cpp utils.hpp
+scattersearch.o: scattersearch.cpp scattersearch.hpp
 main.o: main.cpp
 
-sp: main.o
-	$(CXX) $^ -o $@ $(CXXFLAGS)
+sp: main.o utils.o scattersearch.o  
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $^ -o $@ 
 
 clean:
 	@rm -vf *.o $(BIN)
