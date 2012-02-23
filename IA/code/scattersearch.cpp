@@ -116,30 +116,69 @@ void refset_rebuild()
     // elegimos las b/2 soluciones mas "malas".
 }
 
+bool is_in_item(int p_a, int p_b, int p_w, int p_h, int w, int h, int a, int b){
+    cout << "is_in_item()" << endl;
+
+    for (int k = a; k < a+w ; k++) {
+        for (int l = b; l < b+h; l++) {
+
+            for (int j = p_b; j < p_b + p_h ; j++) {
+                for (int i = p_a; i < p_a + p_w ; i++) {
+
+                    cout << "Esta  ("<<k<<","<<l<< ") en (" << i << "," << j << ") ?"<< endl;
+                    if ( (k == i && l == j) && k != p_a + p_w && l != p_b + p_h)
+                        return true;
+                }
+            }
+        }
+    }
+    return false;
+
+//    if ( ((p_a <= a && a < p_a + p_w) &&
+//          (p_b <= b && b < p_a + p_h))
+//          ||
+//         ((p_a <= a + w && a + w < p_a + p_w) &&
+//          (p_b <= b + h && b + h < p_a + p_h))
+//          ||
+//         ((p_a <= a + w && a + w < p_a + p_w) &&
+//          (p_b <= b  && b < p_a + p_h))
+//          ||
+//         ((p_a <= a && a < p_a + p_w) &&
+//          (p_b <= b + h && b + h < p_a + p_h))
+//)
+//    {
+//        return true;
+//    }
+//    else
+//    {
+//        return false;
+//    }
+}
+
 
 // BL approach
-void fitness_calculation(){
+void fitness_calculation(vector<solution> &ss){
 
     int i, j, k;
     int n = (int)bs.size();
     int a, b, w, h, a_p, b_p, w_p, h_p, a_tmp, b_tmp;
-    int top, new_top;
+    int top, new_top, validos;
     bool valid;
 
     for (i = 0; i < popsize; i++)
         {
         top = 0;
-        // Solution «items»  item = sols.at(i).items.at(j)
+        // Solution «items»  item = ss.at(i).items.at(j)
         for (j = 0; j < n; j++)
         {
             a = 0; b = 0;
             a_tmp = 0; b_tmp = 0;
 
             valid = false;
-            cout << "+ Elemento: " << sols.at(i).items.at(j) << endl;
+            cout << "+ Elemento: " << ss.at(i).items.at(j) << endl;
 
-            w = bs.at(sols.at(i).items.at(j)-1).width;
-            h = bs.at(sols.at(i).items.at(j)-1).height;
+            w = bs.at(ss.at(i).items.at(j)-1).width;
+            h = bs.at(ss.at(i).items.at(j)-1).height;
 
             for (k = 0; k < j; k++)
             {
@@ -147,38 +186,59 @@ void fitness_calculation(){
                 // 0 <= a_i <= w - w_i
                 // 0 <= b_i
 
-                cout << "\tCon " << sols.at(i).items.at(j) << " (w,h) = (" << w << "," << h << ")" << " reviso " << sols.at(i).items.at(k)  << endl;
+                cout << "\tCon " << ss.at(i).items.at(j) << " reviso " << ss.at(i).items.at(k)  << endl;
 
                 b = b_tmp;
                 valid = false;
                 while (0 <= b && valid == false)
                 {
-                    w_p = bs.at(sols.at(i).items.at(k)-1).width;
-                    h_p = bs.at(sols.at(i).items.at(k)-1).height;
-
-                    for (a = a_tmp; a <= strip_width - w; a++)
+                    w_p = bs.at(ss.at(i).items.at(k)-1).width;
+                    h_p = bs.at(ss.at(i).items.at(k)-1).height;
+                    a_tmp = 0;
+                    for (a = a_tmp; a < strip_width; a++)
                     {
-                        cout << "\t\tPara " << sols.at(i).items.at(k) << " probamos (a,b) = (" << a << "," << b << ")" << endl;
-                        a_p = sols.at(i).a.at(k);
-                        b_p = sols.at(i).b.at(k);
-                        cout << "(" << a << "+" << w << "<=" <<  strip_width << ") && ((";
-                        cout << a_p <<"+"<< w_p <<"<=" << a<<") || ( " << a << "+" << w << "<=" << a_p << ") || ";
-                        cout << "(" << b_p <<"+"<< h_p <<"<=" <<b<<") || (" << b << "+" << h << "<=" << b_p << "))" << endl;
+                        cout << "\t\tPara " << ss.at(i).items.at(k) << " probamos (a,b) = (" << a << "," << b << ")" << endl;
+                        a_p = ss.at(i).a.at(k);
+                        b_p = ss.at(i).b.at(k);
                         if (
                             (a + w <= strip_width) &&
                             (
-                                (a_p + w_p <= a) || (a + w <= a_p) ||
-                                (b_p + h_p <= b) || (b + h <= b_p)
+                                ((a_p + w_p <= a) || (a + w <= a_p)) ||
+                                ((b_p + h_p <= b) || (b + h <= b_p))
                             )
                            )
                         {
-                            cout << "valido!" << endl;
-                            valid = true;
-                            a_tmp = a;
-                            b_tmp = b;
-                            // TO DO
-                            // No respeta espacios en blanco.
-                            break;
+                            cout << "Pasa primera condicion..." << endl;
+
+                            validos = 0;
+                            for (int ii = 0; ii < j; ii++) {
+                                cout << "Somos: " << ss.at(i).items.at(j) << endl;
+                                int w_i = bs.at(ss.at(i).items.at(ii)-1).width;
+                                int h_i = bs.at(ss.at(i).items.at(ii)-1).height;
+                                int a_i = ss.at(i).a.at(ii);
+                                int b_i = ss.at(i).b.at(ii);
+                                cout << "Revisamos de nuevo : " << ss.at(i).items.at(ii) << endl;
+                                cout << " a: " << a_i;
+                                cout << " b: " << b_i;
+                                cout << " w: " << w_i;
+                                cout << " h: " << h_i;
+                                cout << endl;
+                                if(!is_in_item(a_i, b_i, w_i, h_i, w, h, a, b)) {
+                                    cout << "valido!" << endl;
+                                    valid = true;
+                                    a_tmp = a;
+                                    b_tmp = b;
+                                    validos++;
+
+                                }
+                                else{
+                                    cout << "No valido" << endl;
+                                }
+                                cout << "\t\tvalidos " << validos << "/" << j << endl;
+                            }
+                            if(valid && validos == j){
+                                break;
+                            }
                         }
 
                     }
@@ -189,15 +249,14 @@ void fitness_calculation(){
                 }
             }
             // End revisión
-
             cout << "\t\t\t\tAgregando par de (a,b): (" << a << "," << b << ")" << endl;
-            sols.at(i).a.push_back(a);
-            sols.at(i).b.push_back(b);
+            ss.at(i).a.push_back(a);
+            ss.at(i).b.push_back(b);
         }
 
         for (j = 0; j < n; j++)
         {
-            new_top = sols.at(i).b.at(j) + bs.at(sols.at(i).items.at(j)-1).height;
+            new_top = ss.at(i).b.at(j) + bs.at(ss.at(i).items.at(j)-1).height;
 
             if (new_top > top)
             {
@@ -205,20 +264,113 @@ void fitness_calculation(){
             }
         }
 
-        sols.at(i).height = top;
+        ss.at(i).height = top;
     }
 }
 
 
+
+//void fitness_calculation(vector<solution> &tmp){
+//
+//    int w, h, n, a, b;
+//    int p_w, p_h, p_a, p_b;
+//    solution s;
+//    int it, p_it;
+//    bool stop;
+//
+//    for (int i = 0; i < (int)tmp.size(); i++) {
+//        s = tmp.at(i); // actual solution
+//        n = bs.size(); // total amount of items
+//        for (int j = 0; j < n; j++) {
+//            it = s.items.at(j);   // actual item
+//            w = bs.at(it-1).width;  // actual item width
+//            h = bs.at(it-1).height; // actual item height
+//            a = 0; b = 0; // starting BL-edge-coordinate
+//
+//            cout << "* Elemento: " << it << " (w,h) = " << "("<<w<<","<<h<< ")" <<endl;
+//
+//            // Adding first element
+//            if (j == 0){
+//                s.a.push_back(a);
+//                s.b.push_back(b);
+//            }
+//            else {
+//
+//                // Looking for the lowest point
+//                stop = 0;
+//                while (b >= 0 && stop <= j){
+//                    for (a = strip_width; a >= 0; a--) {
+//                        cout << "    Probando (a,b) = (" << a << "," << b << ")"<< endl;
+//                        // Iteration over the item in the strip
+//                        for (int k = 0; k < j; k++) {
+//                            p_it = s.items.at(k);       // previous item
+//                            p_w = bs.at(p_it-1).width;  // previous item width
+//                            p_h = bs.at(p_it-1).height; // previous item height
+//                            p_a = s.a.at(k);            // previous item x coordinate
+//                            p_b = s.b.at(k);            // previous item y coordinate
+//                            cout << "     Entramos p_it = " << p_it << endl;
+//
+//                            // lowest point search
+//                            if(!is_in_item(p_a, p_b, p_w, p_h, w, h, a, b)){
+//                                cout << "          Encuentro (a,b) = (" << a << "," << b << ")" << endl;
+//                                // leftmost point
+//                                int l = a;
+//                                while (!is_in_item(p_a, p_b, p_w, p_h, w, h, l, b) ){
+//                                    cout << "Buscando izquierda..." << "(a,b) = (" << l << "," << b << ")" << endl;
+//
+//                                    if ( l == 0 ){
+//                                        break;
+//                                    }
+//                                    l--;
+//                                }
+//                                a = l + 1;
+//                                cout << "             !! Encontrado: ("  << a  << "," << b << ")" << endl;
+//                                stop++;
+//                                // Verify if fit
+//                                // TO DO
+//
+//                            }
+//                            cout << "validos " << stop << "/" << j << endl;
+//                            cout << "vamos " << k+1 << "/" << j << endl;
+//                            getchar();
+//                        }
+//                        if (stop == j){
+//                            break;
+//                        }
+//                    }
+//                    if (stop == j){
+//                        break;
+//                    }
+//                    cout << "b++" << endl;
+//                    b++;
+//                }
+//                // Saving coordinates
+//                cout << "\t\t\t Ingresando (" << a  << "," << b << ")" << endl;
+//                s.a.push_back(a);
+//                s.b.push_back(b);
+//            }
+//        }
+//    }
+//}
+
+
 // Print the solutions vector
-void print_solutions(){
+void print_solutions(vector<solution> tmp){
     cout << "print_solutions()" << endl;
-    for (int i = 0; i < popsize; i++) {
+    for (int i = 0; i < (int)tmp.size(); i++) {
         cout << i << "\t:\t";
-        for (int j = 0; j < (int)bs.size(); j++) {
-            cout << sols.at(i).items.at(j) << " ";
+        for (int j = 0; j < (int)tmp.at(i).items.size(); j++) {
+            cout << tmp.at(i).items.at(j) << " ";
         }
         // cout << " | " << sols.at(i).fitness << endl;
-        cout << " | " << sols.at(i).height << endl;
+        cout << " | " << tmp.at(i).height << " | " << tmp.at(i).fitness << endl;
     }
+}
+
+bool struct_cmp(solution i, solution j){
+    return (i.fitness < j.fitness);
+}
+
+void sort_solutions(vector<solution> &tmp){
+    sort(tmp.begin(), tmp.end(), struct_cmp);
 }

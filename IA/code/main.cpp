@@ -14,9 +14,9 @@ int main(int argc, char *argv[]) {
     // Algorithm
 
     solutions_generation();
-    print_solutions();
-    fitness_calculation();
-    print_solutions();
+    print_solutions(sols);
+    fitness_calculation(sols);
+    //print_solutions();
     return 0;
     solutions_improvment();
     refset_build();

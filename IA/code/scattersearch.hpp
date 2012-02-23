@@ -8,7 +8,7 @@
 // Solution structure
 // Evaluations variables
 
-int popsize = 10;
+int popsize = 1;
 
 struct solution {
     // items chain
@@ -46,6 +46,8 @@ void refset_modification();
 void best_modification();
 void refset_rebuild();
 
-void fitness_calculation();
-void print_solutions();
+void fitness_calculation(vector<solution> &tmp);
+void print_solutions(vector<solution> tmp);
+bool struct_cmp(solution i, solution j);
+void sort_solutions(vector<solution> &tmp);
 #endif
