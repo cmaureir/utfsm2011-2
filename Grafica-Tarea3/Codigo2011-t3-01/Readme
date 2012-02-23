@@ -1,0 +1,28 @@
+Computación Gráfica - Tarea 3
+=============================
+
+Integrantes:
+
+	- Cristián Maureira F.
+	- Javier Olivares O.
+	- Gabriel Zamora N.
+
+La estructura shape contiene los distintos parámetros
+que permitirán el movimiento de los objetos en el 
+eje x, y, z, además de variables que contienen el valor
+de los colores en RGB y el tamaño de la misma. Se utilizo
+como limite N estructuras shape, con N= 100. Las posibles
+figuras a agregar son: cubo, esfera, cono, toroide, tetera.
+Para agregar una figura escribir numero 1 para cubo, 2 para
+esfera, 3 para cono, 4 para toroide y 5 para tetera.
+
+Para mover la ultima figura agregada se utilizan las teclas
+X, x para mover en x positivo y negativo respectivamente; 
+Y, y para mover en y positivo y negativo respectivamente; y
+Z, z para mover en z positivo y negativo respectivamente. Al
+presionar la letra "s" se disminuye el tamaño de la figura y 
+con "S" se aumenta.
+
+Para correr el programa se compila primero utilizando
+el Makefile adjunto, utilizando el comando make. Luego
+se ejecuta el archivo shapes.
