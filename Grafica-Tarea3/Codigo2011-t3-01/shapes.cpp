@@ -1,15 +1,15 @@
 #include <GL/glut.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define N 100
 
-int  origin_degree = 0.0f;
-int own_degree = 0.0f;
+GLfloat own_degree = 0.0f;
 int spin_speed = 4;
 int shapes_number = 0;
 
-bool lights = false;
+bool lights = true;
 bool light0 = true;
 bool light1 = true;
 
@@ -23,6 +23,7 @@ struct shape
 	GLfloat g;
 	GLfloat b;
 	GLfloat size;
+	GLfloat origin_degree;
 	enum shapeTypes type;
 } shapes[N];
 
@@ -44,6 +45,9 @@ void addShape(enum shapeTypes type)
 	// Set size and type of the shape
 	shapes[shapes_number-1].size = 1.0f;
 	shapes[shapes_number-1].type = type;
+
+	// Set last shape degree according to the origin
+	shapes[shapes_number-2].origin_degree = atan2(shapes[shapes_number-2].y, shapes[shapes_number-2].x);
 
 }
 
@@ -170,7 +174,7 @@ void drawShapes()
 		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 		glColor3f(shapes[i].r,shapes[i].g,shapes[i].b);
 		if (i < shapes_number-1)
-			glRotatef(origin_degree, 0.0, 0.0, 1.0);
+			glRotatef(shapes[i].origin_degree, 0.0, 0.0, 1.0);
 		glTranslatef(shapes[i].x, shapes[i].y, shapes[i].z);
 		glRotatef(own_degree, 0.0, 1.0, 0.0);
 
@@ -198,12 +202,12 @@ void drawShapes()
 				glutSolidTeapot(shapes[i].size);
 				break;
 		}
+		shapes[i].origin_degree += spin_speed;
+		shapes[i].origin_degree = (int)shapes[i].origin_degree % 360;
 	}
 
 	own_degree += spin_speed/4;
-	origin_degree += spin_speed;
-	own_degree = own_degree % 360;
-	origin_degree = origin_degree % 360;
+	own_degree = (int)own_degree % 360;
 
 	glFlush();
 }
@@ -240,6 +244,9 @@ int main (int argc, char **argv)
 	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
+
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
 	
 	GLfloat param[] = {0.5, 0.5, 0.5};
 	glLightModelfv(GL_LIGHT_MODEL_COLOR_CONTROL, param);
