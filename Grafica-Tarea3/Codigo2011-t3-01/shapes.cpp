@@ -11,7 +11,7 @@ int shapes_number = 0;
 
 bool lights = true;
 bool light0 = true;
-bool light1 = true;
+bool light1 = false;
 
 enum shapeTypes {cube = 1, sphere, cone, torus, teapot} type;
 struct shape
@@ -233,9 +233,9 @@ int main (int argc, char **argv)
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
 	
-	GLfloat ambient[] = {0.2, 0.2, 0.2, 1.0};
-	GLfloat diffuse[] = {0.3, 0.3, 0.3, 1.0};
-	GLfloat specular[] = {0.5, 0.5, 0.5, 1.0};
+	GLfloat ambient[] = {0.1, 0.1, 0.1, 1.0};
+	GLfloat diffuse[] = {0.7, 0.7, 0.7, 1.0};
+	GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};
 
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
@@ -246,7 +246,6 @@ int main (int argc, char **argv)
 	glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
 
 	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
 	
 	GLfloat param[] = {0.5, 0.5, 0.5};
 	glLightModelfv(GL_LIGHT_MODEL_COLOR_CONTROL, param);
