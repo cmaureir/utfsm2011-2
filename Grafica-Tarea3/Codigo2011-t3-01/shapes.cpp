@@ -1,8 +1,7 @@
 #include <GL/glut.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
+#include <iostream>
+#include <cmath>
+using namespace std;
 #define N 100
 
 GLfloat own_degree = 0.0f;
@@ -104,14 +103,8 @@ void keys(unsigned char key, int x, int y)
 			}
 			else
 			{
-				if (light0)
-					glEnable(GL_LIGHT0);
-				else
-					glDisable(GL_LIGHT0);
-				if (light1)
-					glEnable(GL_LIGHT1);
-				else
-					glDisable(GL_LIGHT1);
+				glEnable(GL_LIGHT0);
+				glEnable(GL_LIGHT1);
 				lights = true;
 			}
 			break;
@@ -120,11 +113,15 @@ void keys(unsigned char key, int x, int y)
 			{
 				glDisable(GL_LIGHT0);
 				light0 = false;
+				if (!light1)
+					lights = false;
 			}
 			else
 			{
 				glEnable(GL_LIGHT0);
 				light0 = true;
+				if(light1)
+					lights = true;
 			}
 			break;
 		case '0':
@@ -132,11 +129,15 @@ void keys(unsigned char key, int x, int y)
 			{
 				glDisable(GL_LIGHT1);
 				light1 = false;
+				if(!light0)
+					lights = false;
 			}
 			else
 			{
 				glEnable(GL_LIGHT1);
 				light1 = true;
+				if(light0)
+					lights = true;
 			}
 			break;
 		case 27: // Exit
@@ -228,11 +229,11 @@ int main (int argc, char **argv)
 	glutInitWindowSize (640, 480);
 	glutInitWindowPosition (0, 0);
 	glutCreateWindow ("Shapes");
-	
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_COLOR_MATERIAL);
-	
+
 	GLfloat ambient[] = {0.1, 0.1, 0.1, 1.0};
 	GLfloat diffuse[] = {0.7, 0.7, 0.7, 1.0};
 	GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};
@@ -240,28 +241,22 @@ int main (int argc, char **argv)
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-	
+
 	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
 
-	glEnable(GL_LIGHT0);
-	
+	glEnable(GL_LIGHT0); // Turning on Light0 by default
+
 	GLfloat param[] = {0.5, 0.5, 0.5};
 	glLightModelfv(GL_LIGHT_MODEL_COLOR_CONTROL, param);
 
-	// Creating first shape!
-	addShape(cube);
+	addShape(cube); // Creating first shape by default
 
 	glutDisplayFunc(drawShapes);
-
 	glutReshapeFunc(reshape);
-
 	glutKeyboardFunc(keys);
-
 	glutIdleFunc(drawShapes);
-
 	glEnable(GL_DEPTH_TEST);
-
 	glutMainLoop();
 }
