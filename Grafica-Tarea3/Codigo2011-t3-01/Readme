@@ -1,4 +1,4 @@
-Computación Gráfica - Tarea 2
+Computación Gráfica - Tarea 3
 =============================
 
 Integrantes:
@@ -17,11 +17,17 @@ Para agregar una figura escribir numero 1 para cubo, 2 para
 esfera, 3 para cono, 4 para toroide y 5 para tetera.
 
 Para mover la ultima figura agregada se utilizan las teclas
-X, x para mover en x positivo y negativo respectivamente; 
+X, x para mover en x positivo y negativo respectivamente;
 Y, y para mover en y positivo y negativo respectivamente; y
 Z, z para mover en z positivo y negativo respectivamente. Al
-presionar la letra "s" se disminuye el tamaño de la figura y 
+presionar la letra "s" se disminuye el tamaño de la figura y
 con "S" se aumenta.
+
+Las luces se controlan con las teclas "8", "9" y "0",
+las cuales realizan lo siguiente:
+8: Prende y/o Apaga ambas luces.
+9: Prende y/o Apaga luz 0.
+0: Prende y/o Apaga luz 1.
 
 Para correr el programa se compila primero utilizando
 el Makefile adjunto, utilizando el comando make. Luego

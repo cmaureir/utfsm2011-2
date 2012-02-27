@@ -1,10 +1,16 @@
 #include <GL/glut.h>
-#include <stdio.h>
-#include <stdlib.h>
-
+#include <iostream>
+#include <cmath>
+using namespace std;
 #define N 100
 
+GLfloat own_degree = 0.0f;
+int spin_speed = 4;
 int shapes_number = 0;
+
+bool lights = true;
+bool light0 = true;
+bool light1 = false;
 
 enum shapeTypes {cube = 1, sphere, cone, torus, teapot} type;
 struct shape
@@ -16,6 +22,7 @@ struct shape
 	GLfloat g;
 	GLfloat b;
 	GLfloat size;
+	GLfloat origin_degree;
 	enum shapeTypes type;
 } shapes[N];
 
@@ -37,6 +44,9 @@ void addShape(enum shapeTypes type)
 	// Set size and type of the shape
 	shapes[shapes_number-1].size = 1.0f;
 	shapes[shapes_number-1].type = type;
+
+	// Set last shape degree according to the origin
+	shapes[shapes_number-2].origin_degree = atan2(shapes[shapes_number-2].y, shapes[shapes_number-2].x);
 
 }
 
@@ -84,6 +94,52 @@ void keys(unsigned char key, int x, int y)
 		case '5':
 			addShape(teapot);
 			break;
+		case '8':
+			if (lights)
+			{
+				glDisable(GL_LIGHT0);
+				glDisable(GL_LIGHT1);
+				lights = false;
+			}
+			else
+			{
+				glEnable(GL_LIGHT0);
+				glEnable(GL_LIGHT1);
+				lights = true;
+			}
+			break;
+		case '9':
+			if (light0)
+			{
+				glDisable(GL_LIGHT0);
+				light0 = false;
+				if (!light1)
+					lights = false;
+			}
+			else
+			{
+				glEnable(GL_LIGHT0);
+				light0 = true;
+				if(light1)
+					lights = true;
+			}
+			break;
+		case '0':
+			if (light1)
+			{
+				glDisable(GL_LIGHT1);
+				light1 = false;
+				if(!light0)
+					lights = false;
+			}
+			else
+			{
+				glEnable(GL_LIGHT1);
+				light1 = true;
+				if(light0)
+					lights = true;
+			}
+			break;
 		case 27: // Exit
 			exit(0);
 			break;
@@ -98,11 +154,30 @@ void drawShapes()
 	// This function call fix the buffer error of place an object over another
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	glLoadIdentity();
+	if (lights)
+	{
+		if (light0)
+		{
+			GLfloat position0[] = {10, 10, 5};
+			glLightfv(GL_LIGHT0, GL_POSITION, position0);
+		}
+		if (light1)
+		{
+			GLfloat position1[] = {-10, 10, 5};
+			glLightfv(GL_LIGHT1, GL_POSITION, position1);
+		}
+	}
+
 	for (i = 0; i < shapes_number; i++)
 	{
 		glLoadIdentity();
+		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 		glColor3f(shapes[i].r,shapes[i].g,shapes[i].b);
+		if (i < shapes_number-1)
+			glRotatef(shapes[i].origin_degree, 0.0, 0.0, 1.0);
 		glTranslatef(shapes[i].x, shapes[i].y, shapes[i].z);
+		glRotatef(own_degree, 0.0, 1.0, 0.0);
 
 		// Premade figures
 		switch(shapes[i].type)
@@ -128,7 +203,12 @@ void drawShapes()
 				glutSolidTeapot(shapes[i].size);
 				break;
 		}
+		shapes[i].origin_degree += spin_speed;
+		shapes[i].origin_degree = (int)shapes[i].origin_degree % 360;
 	}
+
+	own_degree += spin_speed/4;
+	own_degree = (int)own_degree % 360;
 
 	glFlush();
 }
@@ -150,18 +230,33 @@ int main (int argc, char **argv)
 	glutInitWindowPosition (0, 0);
 	glutCreateWindow ("Shapes");
 
-	// Creating first shape!
-	addShape(cube);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_COLOR_MATERIAL);
+
+	GLfloat ambient[] = {0.1, 0.1, 0.1, 1.0};
+	GLfloat diffuse[] = {0.7, 0.7, 0.7, 1.0};
+	GLfloat specular[] = {1.0, 1.0, 1.0, 1.0};
+
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+
+	glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, specular);
+
+	glEnable(GL_LIGHT0); // Turning on Light0 by default
+
+	GLfloat param[] = {0.5, 0.5, 0.5};
+	glLightModelfv(GL_LIGHT_MODEL_COLOR_CONTROL, param);
+
+	addShape(cube); // Creating first shape by default
 
 	glutDisplayFunc(drawShapes);
-
 	glutReshapeFunc(reshape);
-
 	glutKeyboardFunc(keys);
-
 	glutIdleFunc(drawShapes);
-
 	glEnable(GL_DEPTH_TEST);
-
 	glutMainLoop();
 }
