@@ -1,7 +1,4 @@
-#ifndef common_hpp
-#define common_hpp
 #include "common.hpp"
-#endif
 
 void solutions_generation();
 void solutions_improvment();
@@ -16,3 +13,12 @@ void fitness_calculation(vector<solution> &tmp);
 void print_solutions(vector<solution> tmp);
 bool struct_cmp(solution i, solution j);
 void sort_solutions(vector<solution> &tmp);
+
+void read_input_file(string path);
+void print_input_file();
+bool check_flags(int argc, char *argv[], string &path);
+
+bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **strip);
+void place_item(int item, int item_w, int item_h, int a, int b, int **strip);
+void print_strip(vector<int> tmp, int h, int **strip);
+void clear_strip(int **strip);

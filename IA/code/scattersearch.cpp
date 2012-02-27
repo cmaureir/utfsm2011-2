@@ -1,5 +1,12 @@
 #include "scattersearch.hpp"
 
+vector<solution> sols;
+vector<solution> refset;
+solution best;
+vector<box> bs;
+int strip_width;
+int strip_height;
+
 // Generar Soluciones:
 //  Aplica un método de generación con diversidad del conjunto
 //  de soluciones en "P" de tamaño «popsize».
@@ -9,12 +16,22 @@ void solutions_generation()
     // Fixed seed
     srand(123456789);
 
-    int i, j, r;
+    int i, j, k, r;
     int ids[bs.size()];
     int tmp;
+    int **strip_tmp;
 
     // Sorted sequence of the boxes
     for (i = 0; i < (int)bs.size(); i++) ids[i] = i+1;
+
+    // filling strip with 0
+    strip_tmp = new int*[strip_width];
+    for (j = 0; j < strip_width; j++) {
+        strip_tmp[j] = new int[strip_height];
+        for (k = 0; k < strip_height; k++) {
+            strip_tmp[j][k] = 0;
+        }
+    }
 
     // Shuffle of the boxes order
     for (i = 0; i < popsize; i++) {
@@ -34,18 +51,10 @@ void solutions_generation()
         // Temp fitness
         tmp_sol.fitness = -1.0;
         tmp_sol.height  = 0;
+        tmp_sol.strip = strip_tmp;
+
         sols.push_back(tmp_sol);
     }
-
-    // filling strip with 0
-    strip = new int*[strip_width];
-    for (i = 0; i < strip_width; i++) {
-        strip[i] = new int[strip_height];
-        for (j = 0; j < strip_height; j++) {
-            strip[i][j] = 0;
-        }
-    }
-
 }
 
 // Mejorar Soluciones:
@@ -88,9 +97,10 @@ void solutions_combination()
 {
     cout << "solutions_combination()" << endl;
     // TO DO
+    // new_set las guardará.
     // Movimiento de "mutación"
-    // Arreglar método de fitness pare que reciba parametro.
     // Generamos 2 o 3 nuevas soluciones de cada una dentro de refset
+    //  Pueden ser cortar y mover partes, o seleccionar n elementos y moverlos al medio o al final.
 }
 
 // Modificar el conjunto de referencia (refset)
@@ -127,7 +137,7 @@ void refset_rebuild()
     // elegimos las b/2 soluciones mas "malas".
 }
 
-bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h){
+bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **strip){
 
     bool fit = true;
 
@@ -161,7 +171,7 @@ bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h){
     return false;
 }
 
-void place_item(int item, int item_w, int item_h, int a, int b){
+void place_item(int item, int item_w, int item_h, int a, int b, int **strip){
 
     int i, j;
 
@@ -173,7 +183,7 @@ void place_item(int item, int item_w, int item_h, int a, int b){
     }
 }
 
-void print_strip(vector<int> tmp, int h){
+void print_strip(vector<int> tmp, int h, int **strip){
 
     const string colors[] = {
             "\e[0;34m",//AZUL
@@ -213,7 +223,7 @@ void print_strip(vector<int> tmp, int h){
 cout << colors[14] << endl;
 }
 
-void clear_strip(){
+void clear_strip(int **strip){
     for (int ii = 0; ii < strip_width; ii++) {
         for (int jj = 0; jj < strip_height; jj++) {
             strip[ii][jj] = 0;
@@ -221,7 +231,7 @@ void clear_strip(){
     }
 }
 
-// BL approach
+// Bottom-Left approach
 void fitness_calculation(vector<solution> &ss){
 
     int i, j;
@@ -241,15 +251,15 @@ void fitness_calculation(vector<solution> &ss){
             item   = ss.at(i).items.at(j);
             item_w = bs.at(ss.at(i).items.at(j)-1).width;
             item_h = bs.at(ss.at(i).items.at(j)-1).height;
-            if(search_fit(item,item_w,item_h, a, b, ss.at(i).height)){
-                place_item(item,item_w,item_h, a, b);
+            if(search_fit(item,item_w,item_h, a, b, ss.at(i).height, ss.at(i).strip)){
+                place_item(item,item_w,item_h, a, b, ss.at(i).strip);
             }
             p += item_w * item_h;
         }
         ss.at(i).p = (p*100)/(float)(strip_width * ss.at(i).height);
-        //print_strip(ss.at(i).items, ss.at(i).height);
+        print_strip(ss.at(i).items, ss.at(i).height, ss.at(i).strip);
         ss.at(i).fitness = ss.at(i).p; // TO DO: incluir height
-        clear_strip();
+        clear_strip(ss.at(i).strip);
     }
 }
 
@@ -275,4 +285,88 @@ bool struct_cmp(solution i, solution j){
 
 void sort_solutions(vector<solution> &tmp){
     sort(tmp.begin(), tmp.end(), struct_cmp);
+}
+
+
+void read_input_file(string path){
+    ifstream file(path.c_str());
+    string value;
+    int line_number = 0;
+    strip_height=0;
+    box tmp;
+    while (file.good())
+    {
+        if (line_number == 0)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                getline(file, value, ',');
+            }
+        }
+
+        else
+        {
+            // ID as the line counter
+            tmp.id = line_number;
+
+            // Second element "Height"
+            getline(file, value, ',');
+            tmp.height = atoi(value.c_str());
+
+            // Third element "Width"
+            getline(file, value, ',');
+            tmp.width = atoi(value.c_str());
+
+            // Empty value
+            getline(file, value, ',');
+            if(line_number == 1)
+            {
+                strip_width = atoi(value.c_str());
+            }
+            strip_height += tmp.height;
+            bs.push_back(tmp);
+        }
+
+        line_number++;
+    }
+}
+
+void print_input_file(){
+    int i;
+
+    cout << "Strip width: " << strip_width << endl;
+    cout << "id\theight\twidth" << endl;
+    for(i = 0; i < (int)bs.size(); i++)
+    {
+        cout << bs.at(i).id << "\t";
+        cout << bs.at(i).height << "\t";
+        cout << bs.at(i).width << endl;
+    }
+
+}
+
+bool check_flags(int argc, char *argv[], string &path){
+
+    po::options_description desc("Allowed options");
+    desc.add_options()
+        ("help,h"     , "Shows help message")
+        ("input,i"    , po::value<std::string>() , "Path to the input file")
+    ;
+
+    po::variables_map vm;
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+    po::notify(vm);
+
+    if (vm.count("help")) {
+        cout << desc << endl;
+        return false;
+    }
+
+    if (vm.count("input")) {
+        path = vm["input"].as<std::string>();
+        cout << "Using input file: " << path << endl;
+    } else { cout << "You must set the «input file»" << endl; cout << desc << endl; return false;}
+
+
+    return true;
 }

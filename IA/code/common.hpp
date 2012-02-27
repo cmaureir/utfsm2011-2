@@ -1,3 +1,5 @@
+#ifndef COMMON_HPP
+#define COMMON_HPP
 #include  <iostream>
 #include  <fstream>
 #include  <vector>
@@ -13,13 +15,6 @@ struct box{
     int height;
     int width;
 };
-
-vector<box> bs;
-int strip_width;
-int strip_height;
-
-int **strip;
-int popsize = 20;
 
 struct solution {
     // items chain
@@ -37,16 +32,24 @@ struct solution {
 
     // fitness of the solution
     float fitness;
+    int **strip;
 };
 
-vector<solution> sols;
-vector<solution> refset;
-solution best;
+extern vector<box> bs;
+extern vector<solution> sols;
+extern vector<solution> refset;
+extern vector<solution> new_set;
+extern solution best;
+
+static int popsize = 20;
+extern int strip_width;
+extern int strip_height;
 
 // Number of solutions in RefSet
-int b = 0.25*popsize;
+static int b = 0.25*popsize;
 
 // Evaluation function evaluations
-int eval_num = 0;
-int max_eval = 1;
-int new_refset_solutions = 0;
+extern int eval_num;
+extern int max_eval;
+extern int new_refset_solutions;
+#endif

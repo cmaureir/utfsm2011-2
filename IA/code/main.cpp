@@ -1,4 +1,3 @@
-#include "utils.hpp"
 #include "scattersearch.hpp"
 
 int main(int argc, char *argv[]) {
