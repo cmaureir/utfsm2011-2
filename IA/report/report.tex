@@ -9,46 +9,9 @@
 \usepackage{url}
 \usepackage{listings}
 \usepackage{hyperref}
-\usepackage{color}
-\definecolor{gray97}{gray}{.97}
-\definecolor{gray75}{gray}{.75}
-\definecolor{gray45}{gray}{.45}
-\lstset{ frame=Ltb,
-     framerule=0pt,
-     aboveskip=0.2cm,
-     framextopmargin=3pt,
-     framexbottommargin=3pt,
-     framexleftmargin=0.1cm,
-     framesep=0pt,
-     rulesep=.3pt,
-     backgroundcolor=\color{gray97},
-     rulesepcolor=\color{black},
-     %
-     stringstyle=\ttfamily,
-     showstringspaces = false,
-     basicstyle=\scriptsize\ttfamily,
-     commentstyle=\color{gray45},
-     keywordstyle=\bfseries,
-     %
-%     numbers=left,
-%     numbersep=12pt,
-%     numberstyle=\tiny,
-%     numberfirstline = false,
-     breaklines=true,
-   }
 
-% minimizar fragmentado de listados
-\lstnewenvironment{listing}[1][]
-   {\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
-
-\lstdefinestyle{consola}
-   {basicstyle=\scriptsize\bf\ttfamily,
-    backgroundcolor=\color{gray75},
-   }
-
-\lstdefinestyle{C}
-   {language=C,
-   }
+\newcommand\bibtection{%
+\section*{\bibname\markright{\MakeUppercase{\bibname}}}}
 
 %\pagestyle{empty}
 \begin{document}
@@ -89,7 +52,11 @@ Strip Packing\sep Optimization
 \label{conclusions}
 \input{src/conclusions}
 
-\bibliographystyle{model1-num-names}
+\section*{References}
+%\bibsection
+\bibliographystyle{elsarticle-harv}
 \bibliography{report}
+%\bibitem[Hooper et al. (2010)]{hooper}
+
 
 \end{document}
