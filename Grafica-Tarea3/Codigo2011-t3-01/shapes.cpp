@@ -7,7 +7,6 @@ using namespace std;
 GLfloat own_degree = 0.0f;
 int spin_speed = 4;
 int shapes_number = 0;
-
 bool lights = true;
 bool light0 = true;
 bool light1 = false;
@@ -15,12 +14,8 @@ bool light1 = false;
 enum shapeTypes {cube = 1, sphere, cone, torus, teapot} type;
 struct shape
 {
-	GLfloat x;
-	GLfloat y;
-	GLfloat z;
-	GLfloat r;
-	GLfloat g;
-	GLfloat b;
+	GLfloat x, y, z;
+	GLfloat r, g, b;
 	GLfloat size;
 	GLfloat origin_degree;
 	enum shapeTypes type;
@@ -148,7 +143,7 @@ void keys(unsigned char key, int x, int y)
 
 void drawShapes()
 {
-	int i=0;
+	int i = 0;
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	// This function call fix the buffer error of place an object over another
@@ -175,7 +170,9 @@ void drawShapes()
 		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 		glColor3f(shapes[i].r,shapes[i].g,shapes[i].b);
 		if (i < shapes_number-1)
+		{
 			glRotatef(shapes[i].origin_degree, 0.0, 0.0, 1.0);
+		}
 		glTranslatef(shapes[i].x, shapes[i].y, shapes[i].z);
 		glRotatef(own_degree, 0.0, 1.0, 0.0);
 
