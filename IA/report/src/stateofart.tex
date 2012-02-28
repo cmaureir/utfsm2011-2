@@ -93,6 +93,18 @@ algorithm to not modify the entire solution when a item
 is removed, reducing this algorithm cost,
 which in other cases is a critical factor.
 
+\subsection{Hyper-Heuristics}
+
+Most of the presented solutions are based in one placement heuristic,
+but in terms of Hyper-Heuristic, \cite{burke2} present a total
+paradigm change considering the genetic programming methodology,
+evolving heuristics instead of solutions, i.e. the genetic algorithm
+will not search the place for each object, but different variations.
+The implementation use heuristics based in one of the more efficient
+ones, the Best-fit heuristic
+In each iteration, the population of heuristics has an associated
+value which determine how good it is.
+
 \subsection{Exact methods}
 
 One of the exact methods to solve the strip-packing problem,
