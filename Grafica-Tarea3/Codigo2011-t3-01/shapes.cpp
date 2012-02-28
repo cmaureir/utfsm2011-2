@@ -1,6 +1,7 @@
 #include <GL/glut.h>
 #include <iostream>
 #include <cmath>
+#include <cstdlib>
 using namespace std;
 #define N 100
 
