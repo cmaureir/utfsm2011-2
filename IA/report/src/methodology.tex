@@ -1,0 +1,26 @@
+% TO DO
+% Mas de Scatter Search
+% Explicar algo del algoritmo
+The proposed solution is based on the \emph{Scatter Search Algorithm} meta-heuristic,
+and the procedure was implemented as follows:
+
+\begin{scriptsize}
+\begin{algorithm}
+    \begin{algorithmic}
+        \STATE solution\_generation()
+        \STATE solution\_improvment()
+        \STATE refset\_build()
+        \STATE initialization()
+        \REPEAT
+            \WHILE {$\text{RefSet solutions and Evaluation function number} < MaxEval$}
+                \STATE solution\_combination()
+                \STATE solution\_improvment()
+                \STATE refSet\_modification()
+            \ENDWHILE
+            \STATE best\_solution\_modification()
+            \STATE refset\_recontruction()
+        \UNTIL {Evaluation number of the Evaluation Function $<$ MaxEval}
+    \end{algorithmic}
+    \caption{Scatter Search Procedure}
+\end{algorithm}
+\end{scriptsize}

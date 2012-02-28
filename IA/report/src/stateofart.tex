@@ -1,14 +1,36 @@
-Today, there are numerous papers around the
-strip-packing problem, which implies that is not possible
-to consider all of them, including all the meta-heuristics,
-and heuristics methods.
+Today, there are numerous papers around the strip-packing problem,
+due the widely situations which this problem can be applied.
+We consider some related publications to perform a general review
+of the solution for this problem, including the most representative
+meta-heuristics, and heuristics methods.
 
-A complete compendium of the most representative
-solution to the present problem can be found in the work
-presented in \cite{hooper},
-additionally the work presented by \cite{riff},
+A good review of some representative solutions can be found in the work
+presented in \cite{hooper}, considering meta-heuristics and search heuristics,
+but also describe the most representative placement heuristics,
+which is an important aspect in a contruction of any solution,
+because it is possible to use a sofisticated meta-heuristic,
+but if is incompatible with the placement mechanism,
+could return inefficient solutions.
+Furthermore, \cite{hooper} notes some final aspects to take into account
+when developing a solution, it is possible to obtain good implementation in:
+\begin{itemize}
+    \item Execution time, i.e. fast algorithms; (Bottom-Left)
+    \item Best layout, i.e. less used area (Simulated Annealing).
+    \item Good scalability, considering a similar performance with different
+        problem sizes (Genetic and Naïve evolution algorithms).
+\end{itemize}
+
+Additionally the work presented by \cite{riff},
 show a brief and simple analysis of some important
-papers between both published dates.
+publications, testing the proposed implementations
+and obtaining two fundamentals conclusiones:
+\begin{itemize}
+    \item It is important to note that when a new solution is proposed
+        the benchmark to compare results, can return more efficient or
+        inefficient results.
+    \item Reaffirms that the implementation based on Genetic algorithms are well
+        suited to obtain good solutions.
+\end{itemize}
 
 This section aims to collect some actual good approaches
 to solve the strip-packing problem.
@@ -30,20 +52,22 @@ constraints and assign it a penalization based on the existing
 penalization plus the size of the height (considering filling the space
 from above).
 
-% "A squeaky wheel optimisation methodology for two dimensional strip packing"
-%
-% Problema:
-%     - Wäscher et al 2007
-%     - 2D orthogonal open dimension problem.
-%     - Not using piece rotations
-%     - Guillotine cuts are not required
-%     - referenciado como el subtipo "Oriented, Free cutting" (OF)    Lodi et. al (1999) Bortfeldt (2006).
-%
-%     -Conceptos del best-fit
-%         -new piece in the lowest available slot, structure update.
-% Objetivo
-%     -simple y efectiva methodology, basada en squeakly wheel optimisation,
-%         identificar dificiles construyendo soluciones,
+\subsubsection{Non-guillotinable}
+
+Several solutions in the artificial intelligence field
+are based on "real-life" situations, and the work presented
+by \cite{leung} is a good example.
+Considering the a non-guillotinable scenario, allowing
+the items rotation, a solution was propose based on
+the wall-building rule (bricklaying heuristic), generating a fast algorithm
+for large scale problems.
+
+The main idea, is to initiate each layer with one item o
+a set of items with the same width, leaving empty space,
+which is filled up following the BL heuristic.
+Finally a Greedy search is used to improve the results.
+
+
 
 \subsection{Meta-heuristics}
 
@@ -68,8 +92,6 @@ The key, is that maintaining blank-spaces allows the
 algorithm to not modify the entire solution when a item
 is removed, reducing this algorithm cost,
 which in other cases is a critical factor.
-
-
 
 \subsection{Exact methods}
 
