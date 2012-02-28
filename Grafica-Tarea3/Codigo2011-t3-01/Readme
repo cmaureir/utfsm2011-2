@@ -29,6 +29,11 @@ las cuales realizan lo siguiente:
 9: Prende y/o Apaga luz 0.
 0: Prende y/o Apaga luz 1.
 
+Existen dos ejes de giro, uno con respecto a si mismo,
+y otro con respecto al eje Z,
+para poder notar claramente el funcionamiento del giro
+y el reflejo de las luces en las figuras.
+
 Para correr el programa se compila primero utilizando
 el Makefile adjunto, utilizando el comando make. Luego
 se ejecuta el archivo shapes.

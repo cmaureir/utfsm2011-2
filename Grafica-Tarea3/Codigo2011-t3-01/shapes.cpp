@@ -159,12 +159,12 @@ void drawShapes()
 	{
 		if (light0)
 		{
-			GLfloat position0[] = {10, 10, 5};
+			GLfloat position0[] = {10, 10, 5, 0.0f};
 			glLightfv(GL_LIGHT0, GL_POSITION, position0);
 		}
 		if (light1)
 		{
-			GLfloat position1[] = {-10, 10, 5};
+			GLfloat position1[] = {-10, 10, 5, 0.0f};
 			glLightfv(GL_LIGHT1, GL_POSITION, position1);
 		}
 	}
