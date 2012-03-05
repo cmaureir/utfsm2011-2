@@ -1,4 +1,15 @@
+CXX = g++
+CXXFLAGS = -Wall
+LDFLAGS =-lglut -lGLU -lGL -lstdc++
+BIN = bodies
+
+all=$(BIN)
+
 all:
-	g++ -o bodies bodies.cpp -Wall -lglut -lGLU -lGL -lstdc++
+	g++ -c extra.cpp
+	g++ bodies.cpp extra.o -o bodies $(CXXFLAGS) $(LDFLAGS)
+
 clean:
-	rm -fr bodies
+	@rm -vf *.o $(BIN)
+
+.PHONY: all clean
