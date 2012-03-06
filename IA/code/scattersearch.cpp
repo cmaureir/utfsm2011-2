@@ -2,6 +2,7 @@
 
 vector<solution> sols;
 vector<solution> refset;
+vector<solution> new_set;
 solution best;
 vector<box> bs;
 int strip_width;
@@ -74,11 +75,16 @@ void solutions_improvment()
 void refset_build()
 {
     cout << "refset_build()" << endl;
+    int i;
+    vector<solution> tmp;
     // Ordenar soluciones de la poblacion por el fitness
-    sort_solutions(sols);
+    for (i = 0; i < popsize; i++) {
+        tmp.push_back(sols[i]);
+    }
+    sort_solutions(tmp);
     // Seleccionar los «b» mejores y hacer push en RefSet.
-    for (int i = 0; i < b; i++) {
-        refset.push_back(sols.at(i));
+    for (i = 0; i < b; i++) {
+        refset.push_back(tmp[i]);
     }
 }
 
@@ -90,17 +96,182 @@ void initialize()
     best = refset.at(0);
 }
 
+bool is_in(solution tmp, vector<solution> tmp_sols)
+{
+    bool all = true;
+    for (int i = 0; i < (int)tmp_sols.size(); i++) {
+        for (int j = 0; j < (int)tmp.items.size(); j++) {
+            if(tmp.items[j] != tmp_sols[i].items[j]){
+                all = false;
+            }
+            if(!all){
+                break;
+            }
+        }
+    }
+}
+
+
 // Combinar Soluciones:
 //  Generar intentos de soluciones usando todos los pares de soluciones de RefSet,
 //  tal que al menos una solucion de cada una sea nueva.
 void solutions_combination()
 {
     cout << "solutions_combination()" << endl;
+    int begin, end, step;
+    int N = (int)bs.size();
+    int j, tmp_value;
+    vector<int> numbers(N);
+    vector<solution> tmp_sol;
+    bool new_sol = false;
     // TO DO
     // new_set las guardará.
     // Movimiento de "mutación"
     // Generamos 2 o 3 nuevas soluciones de cada una dentro de refset
-    //  Pueden ser cortar y mover partes, o seleccionar n elementos y moverlos al medio o al final.
+    // Pueden ser cortar y mover partes, o seleccionar n elementos y moverlos al medio o al final.
+
+    for (int i = 0; i < (int)refset.size(); i++) {
+        tmp_sol.push_back(refset[i]);
+    }
+
+    for (int i = 0; i < (int)refset.size() - 1; i=i+2) {
+        new_sol = false;
+        while(!new_sol){
+            cout << "p1: ";
+            for (j = 0; j < N; j++) {
+                cout << refset[i].items[j] << " ";
+            }
+            cout << endl;
+            cout << "p2: ";
+            for (j = 0; j < N; j++) {
+                cout << refset[i+1].items[j] << " ";
+            }
+            cout << endl;
+
+            begin = (rand() % (N-2));
+            end = begin + 2 + (rand() % (N-(begin+2)));
+            cout << " * " <<begin << " " << end << endl;
+
+            for (j = begin; j <= end; j++) {
+                cout << refset[i].items[j] << " ";
+            }
+            cout << endl;
+            for (j = begin; j <= end; j++) {
+                cout << refset[i+1].items[j] << " ";
+            }
+            cout << endl;
+
+            for (j = begin; j <= end; j++) {
+                tmp_value = tmp_sol[i].items[j];
+                tmp_sol[i].items[j]   = tmp_sol[i+1].items[j];
+                tmp_sol[i+1].items[j] = tmp_value;
+            }
+
+            cout << "new p1: ";
+            for (j = 0; j < N; j++) {
+                cout << tmp_sol[i].items[j] << " ";
+            }
+            cout << endl;
+            cout << "new p2: ";
+            for (j = 0; j < N; j++) {
+                cout << tmp_sol[i+1].items[j] << " ";
+            }
+            cout << endl;
+
+
+            fill(numbers.begin(), numbers.end(),0);
+            for (j = 0; j < N; j++) {
+                if(numbers[tmp_sol[i].items[j]-1] == 0){
+                    numbers[tmp_sol[i].items[j]-1] = 1;
+                }
+                else{
+                    tmp_sol[i].items[j] = 0;
+                }
+            }
+            fill(numbers.begin(), numbers.end(),0);
+            for (j = 0; j < N; j++) {
+                if(numbers[tmp_sol[i+1].items[j]-1] == 0){
+                    numbers[tmp_sol[i+1].items[j]-1] = 1;
+                }
+                else{
+                    tmp_sol[i+1].items[j] = 0;
+                }
+            }
+
+            cout << "2new p1: ";
+            for (j = 0; j < N; j++) {
+                cout << tmp_sol[i].items[j] << " ";
+            }
+            cout << endl;
+            cout << "2new p2: ";
+            for (j = 0; j < N; j++) {
+                cout << tmp_sol[i+1].items[j] << " ";
+            }
+            cout << endl;
+
+
+            fill(numbers.begin(), numbers.end(),0);
+            for (j = 0; j < N; j++) {
+                if(tmp_sol[i].items[j] != 0){
+                    numbers[tmp_sol[i].items[j]-1] = 1;
+                }
+            }
+            for (j = 0; j < N; j++) {
+                if(numbers[j] == 0){
+                    cout << "falta: " << j + 1 << endl;
+                    for (int k = 0; k < N; k++) {
+                        if(tmp_sol[i].items[k] == 0){
+                            tmp_sol[i].items[k] = j + 1;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            fill(numbers.begin(), numbers.end(),0);
+            for (j = 0; j < N; j++) {
+                if(tmp_sol[i+1].items[j] != 0){
+                    numbers[tmp_sol[i+1].items[j]-1] = 1;
+                }
+            }
+            for (j = 0; j < N; j++) {
+                if(numbers[j] == 0){
+                    cout << "falta: " << j + 1 << endl;
+                    for (int k = 0; k < N; k++) {
+                        if(tmp_sol[i+1].items[k] == 0){
+                            tmp_sol[i+1].items[k] = j + 1;
+                            break;
+                        }
+                    }
+                }
+            }
+
+
+
+            cout << "3new p1: ";
+            for (j = 0; j < N; j++) {
+                cout << tmp_sol[i].items[j] << " ";
+            }
+            cout << endl;
+            cout << "3new p2: ";
+            for (j = 0; j < N; j++) {
+                cout << tmp_sol[i+1].items[j] << " ";
+            }
+            cout << endl;
+
+
+            // verificar solución nueva
+            // con tmp[i] y tmp[i+1]
+            if(!is_in(tmp_sol[i],refset) || !is_in(tmp_sol[i+1],refset)){
+                new_sol = true;
+                cout << "sol nueva" << endl;
+                new_set.push_back(tmp_sol[i]);
+                new_set.push_back(tmp_sol[i+1]);
+            }
+            getchar();
+        }
+    }
+
 }
 
 // Modificar el conjunto de referencia (refset)
@@ -257,7 +428,7 @@ void fitness_calculation(vector<solution> &ss){
             p += item_w * item_h;
         }
         ss.at(i).p = (p*100)/(float)(strip_width * ss.at(i).height);
-        print_strip(ss.at(i).items, ss.at(i).height, ss.at(i).strip);
+        //print_strip(ss.at(i).items, ss.at(i).height, ss.at(i).strip);
         ss.at(i).fitness = ss.at(i).p; // TO DO: incluir height
         clear_strip(ss.at(i).strip);
     }

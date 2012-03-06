@@ -4,6 +4,7 @@ void solutions_generation();
 void solutions_improvment();
 void refset_build();
 void initialize();
+bool is_in(solution tmp, vector<solution> tmp_sols);
 void solutions_combination();
 void refset_modification();
 void best_modification();

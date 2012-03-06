@@ -20,6 +20,12 @@ int main(int argc, char *argv[]) {
     cout << endl;
     print_solutions(refset);
     initialize();
+    solutions_combination();
+    print_solutions(refset);
+    print_solutions(new_set);
+    cout << endl;
+    solutions_combination();
+    print_solutions(new_set);
     return 0;
 
     do {
