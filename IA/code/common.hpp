@@ -46,7 +46,7 @@ extern int strip_width;
 extern int strip_height;
 
 // Number of solutions in RefSet
-static int b = 0.25*popsize;
+static int b = 0.40*popsize;
 
 // Evaluation function evaluations
 extern int eval_num;

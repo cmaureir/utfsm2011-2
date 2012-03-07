@@ -15,17 +15,18 @@ int main(int argc, char *argv[]) {
     solutions_generation();
     fitness_calculation(sols);
     print_solutions(sols);
+
     solutions_improvment();
     refset_build();
-    cout << endl;
+    cout << "refset" << endl;
     print_solutions(refset);
+
     initialize();
     solutions_combination();
-    print_solutions(refset);
+    cout << "new_set" << endl;
+    fitness_calculation(new_set);
     print_solutions(new_set);
-    cout << endl;
-    solutions_combination();
-    print_solutions(new_set);
+
     return 0;
 
     do {
