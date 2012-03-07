@@ -11,23 +11,31 @@ float x_min, y_min, z_min;
 vector<body> bodies;
 vector<body> positions;
 int window_id;
-float zoom_x, zoom_y, zoom_z;
+GLdouble zoom_x, zoom_y, zoom_z;
 GLdouble wleft, wright, wbottom, wtop, wnear, wfar;
 
 int axis;
 float theta[3];
 float eye[3];
-
+float angle_theta, angle_phi;
+float eye_x, eye_y, eye_z;
+float dir_x, dir_y, dir_z;
+float up_x, up_y, up_z;
+int r = 10;
+float zoom = 1;
 void init_var(){
-    alpha = 50;
-    j = 0;
-    swh = 600; sww = 600; swz = 600;
-    xgs = 1; ygs = 1; xgp = 0; ygp = 0;
-    xs = 1; ys = 1;
-    zoom_x = 0.0; zoom_y = 0.0;  zoom_z = 0.0;
-    wleft = 0.0; wright = (GLdouble)sww;
-    wbottom = 0.0; wtop = (GLdouble)swh;
-    wnear = 0.0; wfar = 2.0;
+    alpha = 50; j = 0; angle_theta = 0.0;
+    angle_phi = 0.0;
+    eye_x = 0.0; eye_y = 0.0; eye_z = 5.0;
+    dir_x = 0.0; dir_y = 0.0; dir_z = 0.0;
+    up_x = 0.0; up_y = 1.0; up_z = 0.0;
+    sww = 960; swh = 720; swz  = 700;
+    xgs = 1;   ygs = 1;   xgp  = 0; ygp = 0;
+    xs  = 1;   ys  = 1;
+    zoom_x  = 0.0; zoom_y = 0.0;  zoom_z = 5;
+    wleft   = -(GLdouble)sww; wright = (GLdouble)sww;
+    wbottom = -(GLdouble)swh; wtop   = (GLdouble)swh;
+    wnear   = -(GLdouble)swz; wfar   = (GLdouble)swz;
 }
 
 void read_info(string path){
@@ -104,13 +112,15 @@ void read_results(string path){
 void DisplayBodies()
 {
 
+    glMatrixMode(GL_MODELVIEW);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+    gluLookAt (eye_x, eye_y, eye_z, dir_x,dir_y, dir_z, up_x, up_y, up_z);
     glTranslatef(0,0,0);
 
     GLfloat sizes[2];
     float quadratic[] =  { 0.0f, 0.0f, 0.01f };
     GLuint g_textureID = 0;
-
     glGetFloatv(GL_ALIASED_POINT_SIZE_RANGE, sizes);
     glEnable( GL_POINT_SPRITE_ARB );
     glPointParameterfARB( GL_POINT_SIZE_MAX_ARB, sizes[1] );
@@ -140,32 +150,20 @@ void DisplayBodies()
     for(int i = 0; i <= n; i++)
     {
         glBindTexture(GL_TEXTURE_2D, g_textureID);
-        glVertex3f( (sww/2.0)+bodies[i].x*alpha,
-                    (swh/2.0)+bodies[i].y*alpha,
-                              bodies[i].z);
+        glVertex3f( bodies[i].x*alpha*zoom,
+                    bodies[i].y*alpha*zoom,
+                    bodies[i].z*alpha*zoom);
     }
     glEnd();
     glDisable( GL_POINT_SPRITE_ARB );
-
-}
-
-
-void displays(void)
-{
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(wleft, wright, wbottom, wtop, wnear, wfar);
-    //glTranslatef(zoom_x,zoom_y,zoom_z);
-    DisplayBodies();
-    glutSwapBuffers();
+    //glTranslatef(0,0,0);
+    //glColor3f(1,0,0);
+    //glutSolidTeapot(100*zoom);
 }
 
 void refresh(void)
 {
     glutSetWindow(window_id);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glutPostRedisplay();
 
     if ( j < it - 1  ){
         for (int  i=0; i < n; i++) {
@@ -175,7 +173,9 @@ void refresh(void)
             j++;
         }
     }
-
+    DisplayBodies();
+    //glutSwapBuffers();
+    glFlush();
 }
 
 
@@ -184,75 +184,67 @@ void reshape(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-
-    /* test */
-    //gluPerspective(75, (GLfloat) w /(GLfloat) h , 0.10, 100.0);
-    //glMatrixMode(GL_MODELVIEW);
-    //glLoadIdentity();
-    //gluLookAt (10*zoom_x, 10*zoom_y, 15.0 + zoom_z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-    ///* end test */
-
+    glOrtho(wleft, wright, wbottom, wtop, wnear, wfar);
 }
 void keys(unsigned char key, int x, int y)
 {
     switch(key)
     {
-        case 'x':
-            zoom_x += 0.5; break;
-        case 'X':
-            zoom_x -= 0.5; break;
-        case 'y':
-            zoom_y += 0.5; break;
-        case 'Y':
-            zoom_y -= 0.5; break;
         case 'z':
-            zoom_z += 0.1; break;
+            zoom += 0.1; break;
         case 'Z':
-            zoom_z -= 0.1; break;
-        case 'j':
-            zoom_x -= 0.2f;
-            glMatrixMode(GL_MODELVIEW);
-            glLoadIdentity();
-            gluLookAt (zoom_x, zoom_y, 15.0 + zoom_z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-            break;
-        case 'J':
-            zoom_x += 0.2f;
-            glMatrixMode(GL_MODELVIEW);
-            glLoadIdentity();
-            gluLookAt (zoom_x, zoom_y, 15.0 + zoom_z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-            break;
-        case 'k':
-            zoom_y -= 0.2f;
-            glMatrixMode(GL_MODELVIEW);
-            glLoadIdentity();
-            gluLookAt (zoom_x, zoom_y, 15.0 + zoom_z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-            break;
-        case 'K':
-            zoom_y += 0.2f;
-            glMatrixMode(GL_MODELVIEW);
-            glLoadIdentity();
-            gluLookAt (zoom_x, zoom_y, 15.0 + zoom_z, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-            break;
-
+            zoom -= 0.1; break;
     }
-    glutPostRedisplay();
 }
 
 void mouse(int button, int state, int x, int y)
 {
-    cout << "Button: " <<  button << "\t" << "State: " << state << "\t" << "(x,y)=(" << x << "," << y << ")" << endl;
+    switch(button)
+    {
+        case 3:
+            zoom += 0.1; break;
+        case 4:
+            zoom -= 0.1; break;
+
+    }
 }
 
 void mouse_motion(int x, int y)
 {
-    cout << "(x,y)=(" << x << "," << y << ")" << endl;
+// Mouse point to angle conversion
+   angle_theta = (360.0/swh)*y*3.0;    //3.0 rotations possible
+   angle_phi = (360.0/sww)*x*3.0;
+
+// Restrict the angles within 0~360 deg (optional)
+   if(angle_theta > 360)angle_theta = fmod((double)angle_theta,360.0);
+   if(angle_phi > 360)angle_phi = fmod((double)angle_phi,360.0);
+
+// Spherical to Cartesian conversion.
+// Degrees to radians conversion factor 0.0174532
+   eye_x = r * sin(angle_theta*0.0174532) * sin(angle_phi*0.0174532);
+   eye_y = r * cos(angle_theta*0.0174532);
+   eye_z = r * sin(angle_theta*0.0174532) * cos(angle_phi*0.0174532);
+
+// Reduce angle_theta slightly to obtain another point on the same longitude line on the sphere.
+   GLfloat dt=1.0;
+   GLfloat eye_xtemp = r * sin(angle_theta*0.0174532-dt) * sin(angle_phi*0.0174532);
+   GLfloat eye_ytemp = r * cos(angle_theta*0.0174532-dt);
+   GLfloat eye_ztemp = r * sin(angle_theta*0.0174532-dt) * cos(angle_phi*0.0174532);
+
+// Connect these two points to obtain the camera's up vector.
+   up_x=eye_xtemp-eye_x;
+   up_y=eye_ytemp-eye_y;
+   up_z=eye_ztemp-eye_z;
+
+   glutPostRedisplay();
 }
 
 void init(void)
 {
-    //glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     //glColor3f(1.0, 1.0, 1.0);
-    read_info("input/256info");
-    read_input("input/256init");
-    read_results("/home/cmaureir/256result.1b");
+    read_info("input/1024info");
+    read_input("input/1024init");
+    read_results("input/1024result");
+    glEnable(GL_DEPTH_TEST);
 }

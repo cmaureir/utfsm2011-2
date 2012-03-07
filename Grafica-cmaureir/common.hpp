@@ -20,6 +20,7 @@ extern GLsizei sww, swh, swz;
 extern GLfloat xgs, ygs,xgp, ygp;
 extern GLfloat xs, ys;
 extern GLdouble wleft, wright, wbottom, wtop, wnear, wfar;
+extern GLdouble zoom_x, zoom_y, zoom_z;
 
 extern int n, it, j;
 extern int alpha;
@@ -28,5 +29,7 @@ extern float x_min, y_min, z_min;
 extern vector<body> bodies;
 extern vector<body> positions;
 extern int window_id;
-extern float zoom_x, zoom_y, zoom_z;
+extern float angle_theta, angle_phi;
+extern float eye_x, eye_y, eye_z;
+extern float dir_x, dir_y, dir_z;
 #endif
