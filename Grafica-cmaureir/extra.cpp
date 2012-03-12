@@ -14,6 +14,10 @@ int window_id;
 GLdouble zoom_x, zoom_y, zoom_z;
 GLdouble wleft, wright, wbottom, wtop, wnear, wfar;
 
+    GLfloat sizes[2];
+    float quadratic[] =  { 0.0f, 0.0f, 0.01f };
+    GLuint g_textureID;
+
 int axis;
 float theta[3];
 float eye[3];
@@ -118,38 +122,24 @@ void DisplayBodies()
     gluLookAt (eye_x, eye_y, eye_z, dir_x,dir_y, dir_z, up_x, up_y, up_z);
     glTranslatef(0,0,0);
 
-    GLfloat sizes[2];
-    float quadratic[] =  { 0.0f, 0.0f, 0.01f };
-    GLuint g_textureID = 0;
+
+    glEnable( GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_CONSTANT_COLOR);
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+    glDepthMask(GL_FALSE);
     glGetFloatv(GL_ALIASED_POINT_SIZE_RANGE, sizes);
+
     glEnable( GL_POINT_SPRITE_ARB );
     glPointParameterfARB( GL_POINT_SIZE_MAX_ARB, sizes[1] );
     glPointParameterfARB( GL_POINT_SIZE_MIN_ARB, sizes[0]);
     glPointParameterfvARB( GL_POINT_DISTANCE_ATTENUATION_ARB, quadratic );
     glTexEnvi( GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE );
-    Bitmap *image = new Bitmap();
-    string texture_file = "texture/particle.bmp";
-    if (image->loadBMP(texture_file.c_str()) == false)
-    {
-      cout << "Error: " <<endl;
-      return;
-    }
-    glEnable(GL_TEXTURE_2D);
-    glGenTextures(1, &g_textureID);
-    glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
-    glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-    glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, image->width, image->height, 0, GL_RGB, GL_UNSIGNED_BYTE, image->data);
-    glEnable( GL_BLEND);
-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_CONSTANT_COLOR);
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glDepthMask(GL_FALSE);
 
     glColor4f (1.0f,1.0f,1.0f,0.3f);
+    glBindTexture(GL_TEXTURE_2D, g_textureID);
     glBegin(GL_POINTS);
     for(int i = 0; i <= n; i++)
     {
-        glBindTexture(GL_TEXTURE_2D, g_textureID);
         glVertex3f( bodies[i].x*alpha*zoom,
                     bodies[i].y*alpha*zoom,
                     bodies[i].z*alpha*zoom);
@@ -242,9 +232,24 @@ void mouse_motion(int x, int y)
 void init(void)
 {
     glClearColor(0.0, 0.0, 0.0, 1.0);
-    //glColor3f(1.0, 1.0, 1.0);
-    read_info("input/1024info");
-    read_input("input/1024init");
-    read_results("input/1024result");
+    read_info("input/256info");
+    read_input("input/256init");
+    read_results("input/256result");
     glEnable(GL_DEPTH_TEST);
+
+    Bitmap *image = new Bitmap();
+    string texture_file = "texture/particle.bmp";
+    if (image->loadBMP(texture_file.c_str()) == false)
+    {
+      cerr << "Error opening bmp" <<endl;
+      return;
+    }
+
+    glEnable(GL_TEXTURE_2D);
+    glGenTextures(1, &g_textureID);
+    glBindTexture(GL_TEXTURE_2D, g_textureID);
+    glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
+    glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, image->width, image->height, 0, GL_RGB, GL_UNSIGNED_BYTE, image->data);
 }
