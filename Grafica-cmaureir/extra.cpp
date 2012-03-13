@@ -14,9 +14,9 @@ int window_id;
 GLdouble zoom_x, zoom_y, zoom_z;
 GLdouble wleft, wright, wbottom, wtop, wnear, wfar;
 
-    GLfloat sizes[2];
-    float quadratic[] =  { 0.0f, 0.0f, 0.01f };
-    GLuint g_textureID;
+GLfloat sizes[2];
+float quadratic[] =  { 0.0f, 0.0f, 0.0f };
+GLuint g_textureID;
 
 int axis;
 float theta[3];
@@ -136,6 +136,7 @@ void DisplayBodies()
     glTexEnvi( GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE );
 
     glColor4f (1.0f,1.0f,1.0f,0.3f);
+    glPointSize(1.0f);
     glBindTexture(GL_TEXTURE_2D, g_textureID);
     glBegin(GL_POINTS);
     for(int i = 0; i <= n; i++)
@@ -146,6 +147,7 @@ void DisplayBodies()
     }
     glEnd();
     glDisable( GL_POINT_SPRITE_ARB );
+    glDisable( GL_BLEND );
     //glTranslatef(0,0,0);
     //glColor3f(1,0,0);
     //glutSolidTeapot(100*zoom);
@@ -251,5 +253,5 @@ void init(void)
     glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
     glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, GL_LINEAR );
     glTexParameteri( GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, image->width, image->height, 0, GL_RGB, GL_UNSIGNED_BYTE, image->data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image->width, image->height, 0, GL_RGB, GL_UNSIGNED_BYTE, image->data);
 }
