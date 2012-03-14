@@ -24,9 +24,9 @@ Bitmap::~Bitmap(){
 //load a bitmap from a file and represent it correctly
 //in memory
 bool Bitmap::loadBMP(const char *file) {
-    FILE *in;                  //file stream for reading
+    FILE *in;             //file stream for reading
     char *tempData;       //temp storage for image data
-    int numColours;            //total available colours
+    int numColours;       //total available colours
 
     //bitmap is not loaded yet
     loaded=false;
@@ -50,7 +50,7 @@ bool Bitmap::loadBMP(const char *file) {
 
     //read in the entire BITMAPFILEHEADER
     fread(&bmfh,sizeof(BitmapFileHeader),1,in);
-    //cout << "sizeof(BitmapFileHeader)=" << sizeof(BitmapFileHeader) << endl;
+
     //check for the magic number that says this is a bitmap
     if(bmfh.bfType!=BITMAP_MAGIC_NUMBER) {
         error="File is not in DIB format";
@@ -60,23 +60,11 @@ bool Bitmap::loadBMP(const char *file) {
 
     //read in the entire BITMAPINFOHEADER
     fread(&bmih,sizeof(BitmapInfoHeader),1,in);
-    //cout << "sizeof(BitmapInfoHeader)=" << sizeof(BitmapInfoHeader) << endl;
 
     //save the width, height and bits per pixel for external use
     width=bmih.biWidth;
     height=bmih.biHeight;
     bpp=bmih.biBitCount;
-    //cout << "biBitCount      =" << bmih.biBitCount << endl;
-    //cout << "biClrImportant  =" << bmih.biClrImportant << endl;
-    //cout << "biClrUsed       =" << bmih.biClrUsed << endl;
-    //cout << "biCompression   =" << bmih.biCompression << endl;
-    //cout << "biHeight        =" << bmih.biHeight << endl;
-    //cout << "biPlanes        =" << bmih.biPlanes << endl;
-    //cout << "biSize          =" << bmih.biSize << endl;
-    //cout << "biSizeImage     =" << bmih.biSizeImage << endl;
-    //cout << "biWidth         =" << bmih.biWidth << endl;
-    //cout << "biXPelsPerMeter =" << bmih.biXPelsPerMeter << endl;
-    //cout << "biYPelsPerMeter =" << bmih.biYPelsPerMeter << endl;
 
     //calculate the size of the image data with padding
     dataSize=(width*height*(unsigned int)(bmih.biBitCount/8.0));
@@ -226,9 +214,9 @@ bool Bitmap::convert8(char* tempData) {
                 i+=offset;
             }
             //transfer the data
-            *(data+i)=colours[*(tempData+j)].rgbRed;
-            *(data+i+1)=colours[*(tempData+j)].rgbGreen;
-            *(data+i+2)=colours[*(tempData+j)].rgbBlue;
+            *(data+i)=colours[(int)*(tempData+j)].rgbRed;
+            *(data+i+1)=colours[(int)*(tempData+j)].rgbGreen;
+            *(data+i+2)=colours[(int)*(tempData+j)].rgbBlue;
             j++;
         }
     }
@@ -244,9 +232,9 @@ bool Bitmap::convert8(char* tempData) {
                 i+=offset;
             }
             //transfer the data
-            *(data+i)=colours[*(tempData+j)].rgbRed;
-            *(data+i+1)=colours[*(tempData+j)].rgbGreen;
-            *(data+i+2)=colours[*(tempData+j)].rgbBlue;
+            *(data+i)=colours[(int)*(tempData+j)].rgbRed;
+            *(data+i+1)=colours[(int)*(tempData+j)].rgbGreen;
+            *(data+i+2)=colours[(int)*(tempData+j)].rgbBlue;
             j--;
         }
     }

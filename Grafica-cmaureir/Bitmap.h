@@ -1,5 +1,3 @@
-#ifndef _BITMAP_H
-#define _BITMAP_H
 //File: Bitmap.h
 //Written by:     Mark Bernard
 //on GameDev.net: Captain Jester
@@ -7,9 +5,12 @@
 //Please feel free to use and abuse this code as much
 //as you like.  But, please give me some credit for
 //starting you off on the right track.
-//
+
 //The file Bitmap.cpp goes along with this file
-//
+
+#ifndef _BITMAP_H
+#define _BITMAP_H
+
 #include <iostream>
 #include <cstdio>
 #include <string>
@@ -71,8 +72,8 @@ private:
     BitmapInfoHeader bmih;
     int byteWidth;            //the width in bytes of the image
     int padWidth;             //the width in bytes of the added image
-    unsigned int dataSize;                //size of the data in the file
-    //methods
+    unsigned int dataSize;    //size of the data in the file
+
     void reset(void);
     bool convert24(char *);//convert to 24bit RGB bottom up data
     bool convert8(char *);//convert to 24bit RGB bottom up data

@@ -1,16 +1,9 @@
-CXX = g++
-CXXFLAGS = -Wall
-LDFLAGS =-lglut -lGLU -lGL -lstdc++ -pedantic -DGL_GLEXT_PROTOTYPES -lm 
-BIN = bodies
+CXXFLAGS = -Wall -lglut -lGLU -lGL -lstdc++ -pedantic -DGL_GLEXT_PROTOTYPES -lm
+all: bodies
 
-all=$(BIN)
-
-all:
-	g++ -c Bitmap.cpp
-	g++ -c extra.cpp $(CXXFLAGS) $(LDFLAGS)
-	g++ bodies.cpp extra.o Bitmap.o -o bodies $(CXXFLAGS) $(LDFLAGS)
-
+Bitmap.o: Bitmap.cpp Bitmap.h
+core.o: core.cpp core.hpp
+bodies: Bitmap.o core.o
 clean:
-	@rm -vf *.o $(BIN)
-
+	@rm -vf *.o bodies
 .PHONY: all clean
