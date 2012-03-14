@@ -72,9 +72,36 @@ void init(void)
 // File reading
 void read_files()
 {
-    read_info("input/256info");
-    read_input("input/256init");
-    read_results("input/256result");
+    int op;
+    cout << "0) 256" << endl;
+    cout << "1) 1024" << endl;
+    cout << "2) 1024central" << endl;
+    cin >> op;
+
+    if (op == 0)
+    {
+        read_info("input/256info");
+        read_input("input/256init");
+        read_results("input/256result");
+    }
+    else if (op == 1)
+    {
+        read_info("input/1024info");
+        read_input("input/1024init");
+        read_results("input/1024result");
+    }
+    else if (op == 2)
+    {
+        read_info("input/1024info");
+        read_input("input/1024init.central");
+        read_results("input/1024result.central");
+    }
+    else
+    {
+        cerr << "Error. Invalid Option" << endl;
+        exit(0);
+    }
+
 }
 
 // Information file reading
@@ -92,6 +119,10 @@ void read_info(string path)
         else if (l == 1)
         {
             getline(info,line); it = atoi(line.c_str());
+        }
+        else
+        {
+            break;
         }
         l++;
     }
