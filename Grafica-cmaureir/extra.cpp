@@ -15,7 +15,7 @@ GLdouble zoom_x, zoom_y, zoom_z;
 GLdouble wleft, wright, wbottom, wtop, wnear, wfar;
 
 GLfloat sizes[2];
-float quadratic[] =  { 0.0f, 0.0f, 0.0f };
+float quadratic[] =  { 0.0f, 0.0f, 0.01f };
 GLuint g_textureID;
 
 int axis;
@@ -40,6 +40,13 @@ void init_var(){
     wleft   = -(GLdouble)sww; wright = (GLdouble)sww;
     wbottom = -(GLdouble)swh; wtop   = (GLdouble)swh;
     wnear   = -(GLdouble)swz; wfar   = (GLdouble)swz;
+}
+
+void read_files()
+{
+    read_info("input/1024info");
+    read_input("input/1024init.central");
+    read_results("input/1024result.central");
 }
 
 void read_info(string path){
@@ -131,20 +138,23 @@ void DisplayBodies()
 
     glEnable( GL_POINT_SPRITE_ARB );
     glPointParameterfARB( GL_POINT_SIZE_MAX_ARB, sizes[1] );
-    glPointParameterfARB( GL_POINT_SIZE_MIN_ARB, sizes[0]);
+    glPointParameterfARB( GL_POINT_SIZE_MIN_ARB, sizes[0] + 7.0f);
     glPointParameterfvARB( GL_POINT_DISTANCE_ATTENUATION_ARB, quadratic );
     glTexEnvi( GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE );
 
-    glColor4f (1.0f,1.0f,1.0f,0.3f);
-    glPointSize(1.0f);
     glBindTexture(GL_TEXTURE_2D, g_textureID);
     glBegin(GL_POINTS);
-    for(int i = 0; i <= n; i++)
-    {
-        glVertex3f( bodies[i].x*alpha*zoom,
-                    bodies[i].y*alpha*zoom,
-                    bodies[i].z*alpha*zoom);
-    }
+        glColor4f (1.0f,0.0f,0.0f,0.5f);
+        glVertex3f( bodies[0].x*alpha*zoom,
+                    bodies[0].y*alpha*zoom,
+                    bodies[0].z*alpha*zoom);
+        glColor4f (1.0f,1.0f,1.0f,0.5f);
+        for(int i = 1; i <= n; i++)
+        {
+            glVertex3f( bodies[i].x*alpha*zoom,
+                        bodies[i].y*alpha*zoom,
+                        bodies[i].z*alpha*zoom);
+        }
     glEnd();
     glDisable( GL_POINT_SPRITE_ARB );
     glDisable( GL_BLEND );
@@ -186,6 +196,9 @@ void keys(unsigned char key, int x, int y)
             zoom += 0.1; break;
         case 'Z':
             zoom -= 0.1; break;
+        case 27:
+            exit(0);
+            break;
     }
 }
 
@@ -234,9 +247,6 @@ void mouse_motion(int x, int y)
 void init(void)
 {
     glClearColor(0.0, 0.0, 0.0, 1.0);
-    read_info("input/256info");
-    read_input("input/256init");
-    read_results("input/256result");
     glEnable(GL_DEPTH_TEST);
 
     Bitmap *image = new Bitmap();

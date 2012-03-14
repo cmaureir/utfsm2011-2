@@ -1,6 +1,7 @@
 #include "common.hpp"
 
 void init_var();
+void read_files();
 void read_info(string path);
 void read_input(string path);
 void read_results(string path);
