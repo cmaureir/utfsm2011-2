@@ -25,9 +25,9 @@ void init_var()
 {
     sww = 960; swh = 720; swz = 700;
 
-    wleft   = -(GLdouble)sww; wright = (GLdouble)sww;
-    wbottom = -(GLdouble)swh; wtop   = (GLdouble)swh;
-    wnear   = -(GLdouble)swz; wfar   = (GLdouble)swz;
+    wleft   = -(GLdouble)sww*2; wright = (GLdouble)sww*2;
+    wbottom = -(GLdouble)swh*2; wtop   = (GLdouble)swh*2;
+    wnear   = -(GLdouble)swz*2; wfar   = (GLdouble)swz*2;
 
     alpha = 50; zoom = 1.0;
     j = 0; r = 10;
@@ -187,7 +187,7 @@ void DisplayBodies()
     glEnable(GL_POINT_SPRITE_ARB);
 
     glPointParameterfARB(GL_POINT_SIZE_MAX_ARB, sizes[1]);
-    glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, sizes[0] + 7.0f);
+    glPointParameterfARB(GL_POINT_SIZE_MIN_ARB, sizes[0] + 15.0f);
     glPointParameterfvARB(GL_POINT_DISTANCE_ATTENUATION_ARB, quadratic);
 
     glTexEnvi(GL_POINT_SPRITE_ARB, GL_COORD_REPLACE_ARB, GL_TRUE);
