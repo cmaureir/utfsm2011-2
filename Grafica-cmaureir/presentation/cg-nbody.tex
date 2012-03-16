@@ -1,0 +1,91 @@
+%% Esqueleto base de la presentacion
+%%% No agregar las paginas con un include
+%%% Lo que quieran aportar deben ser usuarios del TRAC
+
+\documentclass{beamer}
+\usepackage[english,activeacute]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{algorithmic}
+\usepackage{color}
+
+\definecolor{gray2}{rgb}{100,100,100}
+\definecolor{red}{rgb}{255,0,0}
+\definecolor{blue}{rgb}{0,0,255}
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+\newcommand{\blue}{\textcolor{blue}}
+\newcommand{\red}{\textcolor{red}}
+\newcommand{\green}{\textcolor{green}}
+
+
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          alternativetitlepage=true,% Use the fancy title page.
+          titlepagelogo=img/logo,% Logo for the first page.
+          watermark=,% Watermark used in every page.
+          watermarkheight=100px,% Height of the watermark.
+          watermarkheightmult=4,% The watermark image is 4 times bigger
+                                % than watermarkheight.
+          ]{Torino}
+
+\usecolortheme{nouvelle}
+
+
+\lstset{ frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.5cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+     framexleftmargin=0.4cm,
+     framesep=0pt,
+     rulesep=.4pt,
+     backgroundcolor=\color{gray97},
+     rulesepcolor=\color{black},
+     %
+     stringstyle=\ttfamily,
+     showstringspaces = false,
+     basicstyle=\tiny\ttfamily,
+     %commentstyle=\color{gray45},
+     %keywordstyle=\bfseries,
+     %
+     numbers=left,
+     numbersep=13pt,
+     numberstyle=\tiny,
+     numberfirstline = false,
+     breaklines=true,
+	 emph = {[1]\_\_device\_\_,\_\_global\_\_,\_\_syncthreads,pthread\_create,pthread\_join,pragma,omp,parallel,private, threadIdx, blockDim, blockIdx,cudaThreadSynchronize},
+	 emphstyle={[1]\color{blue}},
+   }
+
+% minimizar fragmentado de listados
+\lstnewenvironment{listing}[1][]
+   {\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+\lstdefinestyle{consola}
+   {basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+   }
+\lstdefinestyle{C}
+   {language=C,
+   }
+
+\author[C. Maureira]{\large Cristián Maureira Fredes\\\normalsize \textcolor{gray}{cmaureir@csrg.cl}}
+\title[n-body visualization]{N-body problem visualization.}
+\subtitle{Using OpenGL}
+\institute[UTFSM]{Departamento de Informática\\Universidad Técnica Federico Santa María}
+\date{\today}
+
+\begin{document}
+\begin{frame}[t,plain]
+\titlepage
+\end{frame}
+\include{src/introduction}
+\include{src/implementation}
+\include{src/conclusions}
+\begin{frame}[t,plain]
+\titlepage
+\end{frame}
+\end{document}

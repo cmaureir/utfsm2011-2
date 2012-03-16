@@ -1,0 +1,57 @@
+\frame
+{
+\frametitle{N-body problem}
+\begin{block}{Definition}
+    Predict the \underline{movement} of a \underline{celestial objects} group,
+    which are \underline{interacting} with each other \underline{gravitationally}.
+\end{block}
+}
+
+\frame
+{
+\frametitle{N-body problem}
+\begin{itemize}
+    \item Dynamic simulation of a particle system.
+    \item Applications.
+    \begin{itemize}
+        \item Fluid mechanics
+        \item Astrophysics
+        \item Stellar dynamics
+        \item Video games
+        \item etc.
+    \end{itemize}
+\end{itemize}
+}
+
+
+\frame
+{
+\frametitle{N-body problem}
+Critical sections:
+\begin{itemize}
+    \item Initial positions.
+    \item Integration method.
+    \item Force calculation.
+\end{itemize}
+}
+
+
+\frame
+{
+\frametitle{N-body problem}
+
+\begin{itemize}
+    \item Force calculation.
+    \begin{itemize}
+        \item Initial positions $x_i$.
+        \item Initial velocities $v_i$.
+        \item $1 \leq i \leq N$
+    \end{itemize}
+    $$f_{ij} =G \cdot \frac{m_i \cdot m_j}{||r_{ij}||^{2}} \cdot \frac{r_{ij}}{||r_ij||}$$
+    \begin{itemize}
+        \item $m_i$ and $m_j$ masses of the $i$ and $j$ bodies.
+        \item $r_{ij} = (x_j - x_i )$ distance vector between the $i$ and $j$ bodies.
+        \item $G$, gravitational constant. ($6,67428 \times 10^{-11} m^{3} kg^{-1} s^{-2}$)
+    \end{itemize}
+\end{itemize}
+}
