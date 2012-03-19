@@ -65,7 +65,7 @@ void solutions_improvment()
 {
     cout << "solutions_improvment()" << endl;
     // TO DO
-    // Grasp
+    // SWAP
 }
 
 // Construir el conjunto de referencia RefSet:
@@ -96,6 +96,7 @@ void initialize()
     best = refset.at(0);
 }
 
+// Busca si tmp está dentro de tmp_sols
 bool is_in(solution tmp, vector<solution> tmp_sols)
 {
     bool all = true;
@@ -111,7 +112,7 @@ bool is_in(solution tmp, vector<solution> tmp_sols)
     }
 }
 
-
+// Imprime el valor de una solucion (orden de las cajas)
 void print_one_solution(solution tmp){
     for (int i = 0; i < (int)tmp.items.size(); i++) {
         cout << tmp.items[i] << " ";
@@ -200,6 +201,7 @@ void solutions_combination()
                 }
             }
 
+            // Verificar si las nuevas soluciones estan presentes en refset.
             if(!is_in(p1,refset) || !is_in(p2,refset)){
                 new_sol = true;
             }
@@ -268,6 +270,8 @@ void refset_rebuild()
     // elegimos las b/2 soluciones mas "malas".
 }
 
+// Buscar una posición para un elemento dentro del «strip»
+//  Utilizando heurística Bottom-Left
 bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **strip){
 
     bool fit = true;
@@ -282,7 +286,6 @@ bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **
                 {
                     for (a = x; a < x + item_w; a++)
                     {
-                        //if (strip[a][b] == -1)
                         if (strip[a][b] != 0)
                             fit = false;
                     }
@@ -302,6 +305,8 @@ bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **
     return false;
 }
 
+
+// Posicionamiento de un item en el «strip»
 void place_item(int item, int item_w, int item_h, int a, int b, int **strip){
 
     int i, j;
@@ -362,7 +367,7 @@ void clear_strip(int **strip){
     }
 }
 
-// Bottom-Left approach
+// Calculo del fitness
 void fitness_calculation(vector<solution> &ss){
 
     int i, j;
