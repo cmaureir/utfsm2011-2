@@ -219,9 +219,30 @@ void solutions_combination()
 void refset_modification()
 {
     cout << "refset_modification()" << endl;
-    // TO DO
-    // crear un nuevo vector con la union
-    // refset nuevo con la seleccion de la union
+
+    int i;
+    vector<solution> tmp;
+
+    // Adding «new_set» elements
+    for (i = 0; i < b*(b-1)/2; i++) {
+        tmp.push_back(new_set[i]);
+    }
+
+    // Adding previous «refset» elements
+    for (i = 0; i < b; i++) {
+        tmp.push_back(refset[i]);
+    }
+
+    // Sorting «tmp» solutions
+    sort_solutions(tmp);
+
+    // Removing all «refset« values
+    refset.erase(refset.begin(),refset.end());
+
+    // Adding new «b» «refset» values
+    for (i = 0; i < b; i++) {
+        refset.push_back(tmp[i]);
+    }
 }
 
 // Modificar el mejor:

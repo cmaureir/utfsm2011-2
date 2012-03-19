@@ -27,6 +27,10 @@ int main(int argc, char *argv[]) {
     fitness_calculation(new_set);
     print_solutions(new_set);
 
+    refset_modification();
+    cout << "new refset" << endl;
+    print_solutions(refset);
+
     return 0;
 
     do {
