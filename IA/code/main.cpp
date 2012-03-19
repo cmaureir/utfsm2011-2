@@ -8,24 +8,16 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     read_input_file(path);
-    //print_input_file();
 
     // Algorithm
 
     solutions_generation();
     fitness_calculation(sols);
-    print_solutions(sols);
 
     solutions_improvment();
     refset_build();
-    cout << "refset" << endl;
-    print_solutions(refset);
 
     initialize();
-    solutions_combination();
-    cout << "new_set" << endl;
-    fitness_calculation(new_set);
-    print_solutions(new_set);
 
     return 0;
 
@@ -33,8 +25,9 @@ int main(int argc, char *argv[]) {
         // nuevas soluciones en RefSet y Núm. función de evaluación < MaxEval
         // Repeticion mientras se sigan agregando nuevas soluciones
         //  al conjunto de referencia.
-        while (new_refset_solutions < max_eval && eval_num < max_eval){
+        while (eval_num < max_eval){
             solutions_combination();
+            fitness_calculation(new_set);
             solutions_improvment();
             refset_modification();
         }
@@ -43,6 +36,6 @@ int main(int argc, char *argv[]) {
     // Número de evaluaciones de función de evaluación < MaxEval
     // Se termina cuando se han realizado un todal de MaxEval de evaluaciones
     //   de la función de evaluación.
-    } while (eval_num < max_eval);
+    } while (iteration < max_iter);
     return 0;
 }
