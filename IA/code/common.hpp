@@ -41,13 +41,13 @@ extern vector<solution> refset;
 extern vector<solution> new_set;
 extern solution best;
 
-// Number of solutions in RefSet
-static int b = 20;
-
-static int popsize = 5*b;
 extern int strip_width;
 extern int strip_height;
 
 // Evaluation function evaluations
-static int max_iter = 1000;
+#define max_iter 10
+// Number of solutions in RefSet
+static int b = 20;
+static int popsize = 5*b;
+
 #endif

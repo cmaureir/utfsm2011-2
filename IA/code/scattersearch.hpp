@@ -1,7 +1,7 @@
 #include "common.hpp"
 
 void solutions_generation();
-void solutions_improvment();
+void solutions_improvment(vector<solution> &tmp_sols);
 void refset_build();
 void initialize();
 bool is_in(solution tmp, vector<solution> tmp_sols);
@@ -10,6 +10,7 @@ void refset_modification();
 void best_modification();
 void refset_rebuild();
 
+void fitness_calculation_one(solution &tmp);
 void fitness_calculation(vector<solution> &tmp);
 void print_solutions(vector<solution> tmp);
 bool struct_cmp(solution i, solution j);
