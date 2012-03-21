@@ -1,9 +1,9 @@
 #include "common.hpp"
 
-void solutions_generation();
+void solutions_generation(vector<solution> &soluciones);
 void solutions_improvment(vector<solution> &tmp_sols);
 void refset_build();
-void initialize();
+void save_best_solution(vector<solution> tmp);
 bool is_in(solution tmp, vector<solution> tmp_sols);
 void solutions_combination();
 void refset_modification();
@@ -24,3 +24,4 @@ bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **
 void place_item(int item, int item_w, int item_h, int a, int b, int **strip);
 void print_strip(vector<int> tmp, int h, int **strip);
 void clear_strip(int **strip);
+int get_difference(vector<solution> a, vector<solution> b);

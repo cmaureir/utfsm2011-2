@@ -12,25 +12,30 @@ int main(int argc, char *argv[]) {
     // Algorithm
     int iteration = 0;
 
-    solutions_generation();
+    solutions_generation(sols);
     fitness_calculation(sols);
 
     solutions_improvment(sols);
     refset_build();
+    //print_solutions(sols);
+    cout << endl;
+    //print_solutions(refset);
 
-    initialize();
+    save_best_solution(refset);
 
     do {
         // número de nuevas soluciones en RefSet
-        while (iteration < max_iter){
-            cout << iteration << "/" << max_iter << endl;
-            iteration++;
+        while (1)
+        {
+            refset_tmp = refset;
             solutions_combination();
             fitness_calculation(new_set);
             solutions_improvment(new_set);
-            //refset_modification();
+            refset_modification();
+            cout << get_difference(refset_tmp,refset) << endl;
+            getchar();
         }
-        best_modification();
+        save_best_solution(refset);
         refset_rebuild();
         iteration++;
     } while (iteration < max_iter);

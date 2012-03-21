@@ -38,6 +38,7 @@ struct solution {
 extern vector<box> bs;
 extern vector<solution> sols;
 extern vector<solution> refset;
+extern vector<solution> refset_tmp;
 extern vector<solution> new_set;
 extern solution best;
 
@@ -47,7 +48,7 @@ extern int strip_height;
 // Evaluation function evaluations
 #define max_iter 10
 // Number of solutions in RefSet
-static int b = 20;
+static int b = 20; //20
 static int popsize = 5*b;
 
 #endif
