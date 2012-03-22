@@ -1,7 +1,4 @@
-% TO DO
-% Mas de Scatter Search
-% Explicar algo del algoritmo
-The proposed solution is based on the \emph{Scatter Search Algorithm} meta-heuristic,
+The proposed solution is based on the \emph{Scatter-Search} metaheuristic,
 and the procedure was implemented as follows:
 
 \begin{scriptsize}
@@ -10,17 +7,63 @@ and the procedure was implemented as follows:
         \STATE solution\_generation()
         \STATE solution\_improvment()
         \STATE refset\_build()
-        \STATE initialization()
+        \STATE save\_the\_best\_solution()
         \REPEAT
-            \WHILE {$\text{RefSet solutions and Evaluation function number} < MaxEval$}
+            \WHILE {$\text{New solutions in RefSet}$}
                 \STATE solution\_combination()
                 \STATE solution\_improvment()
                 \STATE refSet\_modification()
             \ENDWHILE
-            \STATE best\_solution\_modification()
-            \STATE refset\_recontruction()
-        \UNTIL {Evaluation number of the Evaluation Function $<$ MaxEval}
+            \STATE save\_the\_best\_solution()
+            \STATE refset\_rebuild()
+        \UNTIL {iteration $<$ Max\_Iteration}
     \end{algorithmic}
     \caption{Scatter Search Procedure}
 \end{algorithm}
 \end{scriptsize}
+
+Some fundamental details of each procedure,
+is explained below:
+
+\begin{itemize}
+    \item $solution\_generation()$
+
+        The solutions are generated considering an ordered sequence of the box identification as starting point.
+        Each solution, use the starting point and perform a modification in the identification order \emph{randomly}.
+    \item $solution\_improvment()$
+        Considering $N$ as the total amount of boxes,
+        a \emph{swap} is performed $N/2$ times between two elements of the solution.
+        % TO DO
+        % Swap diagram
+    \item $refset\_build()$
+
+        The $RefSet$ is builded considering the $b$ best solutions of the main set of solutions.
+    \item $save\_the\_best\_solution()$
+
+        The $RefSet$ set is sorted, and the best solution is saved.
+    \item $solution\_combination()$
+
+        % TO DO
+        % PMX
+    \item $refSet\_modification()$
+
+        The $RefSet$ is modificated following the next procedure:
+        Select the $b$ best solutions between the union of the new
+        $b(b-1)/2$ generated solutions in the inner-loop and the $RefSet$ solutions.
+    \item $refset\_rebuild()$
+
+        The rebuild is performed removing the $b/2$ worst solutions,
+        and a new entire population of solutions are generated
+        using the same mechanism of the algorithm first phase (before the outer-loop),
+        but, the improvement is a different approach, using the \emph{shift} instead
+        the previous \emph{swap}.
+        The \emph{shift} is performed N times to the left,
+        considering all the possible new sub-solutions for each solution,
+        and the final used candidates are only the sub-solutions which their fitness
+        is more distant from the previous one.
+        Considering this new set of solutions, the worst solution are selected,
+        because they are the more diverse solutions in comparison to the $RefSet$.
+        Finally the selected solutions in both steps produces the new $RefSet$.
+        % TO DO
+        % Shift diagram
+\end{itemize}

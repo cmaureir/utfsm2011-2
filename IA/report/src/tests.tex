@@ -1,3 +1,59 @@
 % TO DO
 % ambiente donde se corrieron los tests
 % tablas con resultados
+\subsection{Hardware configuration}
+
+The hardware details of the used computer are described in \ref{tab:table1}.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|l|r|}
+        \hline
+        \textbf{Processor} & Phenom II X4 965 Black AM3 3.4Ghz\\\hline
+        \textbf{RAM} & 8GB 1333MHz\\\hline
+        \textbf{OS} & Arch Linux, Kernel 3.2.11 \\\hline
+    \end{tabular}
+    \label{tab:table1}
+    \caption{Hardware configuration}
+\end{table}
+
+\subsection{Experiments instances}
+
+The used parameters are:
+\begin{itemize}
+    \item Selection parameter ($b = 10$)
+    \item Solutions number    ($popsize = b*5$)
+    \item Maximum iteration   ($max\_iter = 100$)
+\end{itemize}
+
+\begin{table}[h!t]
+    \centering
+    \small
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Instance} & \textbf{Time} & \textbf{Height} & \textbf{Height (*)} \\ \hline
+        c1-p1 (HT01)      &               &                 & 20                  \\ \hline
+        c1-p2 (HT02)      &               &                 & 20                  \\ \hline
+        c1-p3 (HT03)      &               &                 & 20                  \\ \hline
+        c2-p1 (HT04)      &               &                 & 15                  \\ \hline
+        c2-p2 (HT05)      &               &                 & 15                  \\ \hline
+        c2-p3 (HT06)      &               &                 & 15                  \\ \hline
+        c3-p1 (HT07)      &               &                 & 30                  \\ \hline
+        c3-p2 (HT08)      &               &                 & 30                  \\ \hline
+        c3-p3 (HT09)      &               &                 & 30                  \\ \hline
+        c4-p1             &               &                 & 60                  \\ \hline
+        c4-p2             &               &                 & 60                  \\ \hline
+        c4-p3             &               &                 & 60                  \\ \hline
+        c5-p1             &               &                 & 90                  \\ \hline
+        c5-p2             &               &                 & 90                  \\ \hline
+        c5-p3             &               &                 & 90                  \\ \hline
+        c6-p1             &               &                 & 120                 \\ \hline
+        c6-p2             &               &                 & 120                 \\ \hline
+        c6-p3             &               &                 & 120                 \\ \hline
+        c7-p1             &               &                 & 240                 \\ \hline
+        c7-p2             &               &                 & 240                 \\ \hline
+        c7-p3             &               &                 & 240                 \\ \hline
+    \end{tabular}
+    \label{tab:results}
+    \caption{Hopper and Turton benchmark data. (*) means the optimal height}
+\end{table}
