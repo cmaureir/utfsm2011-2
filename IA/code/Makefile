@@ -1,5 +1,5 @@
 CC = g++
-LDFLAGS = -Wall -lboost_program_options
+LDFLAGS = -Wall -lboost_program_options -pg
 
 all: main
 

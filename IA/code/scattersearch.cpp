@@ -101,8 +101,7 @@ void print_one_solution(solution tmp){
     for (int i = 0; i < (int)tmp.items.size(); i++) {
         cout << tmp.items[i] << " ";
     }
-    cout << "| " << tmp.fitness;
-    cout << endl;
+    cout << " | " << tmp.fitness << " | " << tmp.p << "%" << endl;
 }
 
 void print_strip(solution sol){
@@ -296,7 +295,7 @@ void fitness_calculation(vector<solution> &ss){
 //  de soluciones en "P" de tamaño «popsize».
 void solutions_generation(vector<solution> &soluciones)
 {
-    cout << "solutions_generation()" << endl;
+    //cout << "solutions_generation()" << endl;
     // Fixed seed
     srand(123456789);
     soluciones.clear();
@@ -348,9 +347,9 @@ void solutions_generation(vector<solution> &soluciones)
 // Mejorar Soluciones:
 //  Aplica un método de búsqueda local para mejorar las
 //  soluciones generadas en el paso previo.
-void solutions_improvment(vector<solution> &tmp_sols)
+void solutions_improvement(vector<solution> &tmp_sols)
 {
-    cout << "solutions_improvment()" << endl;
+    //cout << "solutions_improvement()" << endl;
     int N = (int)bs.size();
     int counter = 0;
     int a, b, tmp, before, after;
@@ -358,7 +357,7 @@ void solutions_improvment(vector<solution> &tmp_sols)
 
         // Swap
         before = tmp_sols[i].fitness;
-        while(counter < N)
+        while(counter < N/2)
         {
             a = (rand() % (N));
             b = (rand() % (N));
@@ -386,7 +385,7 @@ void solutions_improvment(vector<solution> &tmp_sols)
 //  generar nuevas soluciones al combinarlas por algún método.
 void refset_build()
 {
-    cout << "refset_build()" << endl;
+    //cout << "refset_build()" << endl;
     int i;
     vector<solution> tmp;
     // Ordenar soluciones de la poblacion por el fitness
@@ -404,7 +403,7 @@ void refset_build()
 //  Identificar la mejor solución en RefSet como la mejor actual.
 void save_best_solution(vector<solution> tmp)
 {
-    cout << "save_best_solution()" << endl;
+    //cout << "save_best_solution()" << endl;
     sort_solutions(tmp);
     best = tmp[0];
 }
@@ -416,20 +415,20 @@ void save_best_solution(vector<solution> tmp)
 //  tal que al menos una solucion de cada una sea nueva.
 void solutions_combination()
 {
-    cout << "solutions_combination()" << endl;
+    //cout << "solutions_combination()" << endl;
     int begin, end;
     int N = (int)bs.size();
     int j, tmp_value, new_sols;
     bool new_sol = false;
     vector<int> numbers(N);
     solution p1, p2;
-
+    new_set.clear();
     for (int i = 0; i < (int)refset.size() - 1; i=i+2) {
         p1 = refset[i];
         p2 = refset[i+1];
         new_sol = false;
         new_sols = 0;
-        while(!new_sol || new_sols <= 3){
+        while(!new_sol || new_sols <= b/2){
             begin = (rand() % (N-2));
             end = begin + 2 + (rand() % (N-(begin+2)));
 
@@ -509,39 +508,33 @@ void solutions_combination()
 // Modificar el conjunto de referencia (refset)
 //  Elegir las mejores «b» soluciones de la unión entre RefSet con el conjunto
 //  «b(b-1)/2» de soluciones generadas en el paso anterior.
-void refset_modification()
+void refset_modification(vector<solution> tmp_sols)
 {
-    cout << "refset_modification()" << endl;
+    //cout << "refset_modification()" << endl;
 
     int i;
     vector<solution> tmp;
 
-    cout << "a" << endl;
     // Adding «new_set» elements
     for (i = 0; i < b*(b-1)/2; i++) {
-        tmp.push_back(new_set[i]);
+        tmp.push_back(tmp_sols[i]);
     }
 
-    cout << "b" << endl;
     // Adding previous «refset» elements
     for (i = 0; i < b; i++) {
         tmp.push_back(refset[i]);
     }
-    cout << "c" << endl;
 
     // Sorting «tmp» solutions
     sort_solutions(tmp);
 
-    cout << "d" << endl;
     // Removing all «refset« values
-    refset.erase(refset.begin(),refset.end());
-    cout << "e" << endl;
+    refset.clear();
 
     // Adding new «b» «refset» values
     for (i = 0; i < b; i++) {
         refset.push_back(tmp[i]);
     }
-    cout << "f" << endl;
 }
 
 /*********
@@ -559,9 +552,9 @@ solution shift_left(solution tmp)
 }
 
 
-vector<solution> solutions_improvment2(vector<solution> tmp)
+vector<solution> solutions_improvement2(vector<solution> tmp)
 {
-    cout << "solutions_improvment2()" << endl;
+    //cout << "solutions_improvement2()" << endl;
 
     vector<solution> candidates, final;
     solution tmp_sol;
@@ -594,11 +587,11 @@ vector<solution> solutions_improvment2(vector<solution> tmp)
 // Reconstruir RefSet:
 //  Eliminar las «b/2» soluciones en RefSet.
 //  Generar «popsize» soluciones mejoradas aplicando "solutions_generation" y
-//  "solutions_improvment".
+//  "solutions_improvement".
 //  Elegir «b/2» soluciones "diversas" y agregarlas a RefSet.
 void refset_rebuild()
 {
-    cout << "refset_rebuild()" << endl;
+    //cout << "refset_rebuild()" << endl;
     // eliminamos las b/2 peores.
     sort_solutions(refset);
     refset.erase(refset.end()-(b/2), refset.end());
@@ -607,7 +600,7 @@ void refset_rebuild()
     vector<solution> new_sols;
     solutions_generation(new_sols);
     fitness_calculation(new_sols);
-    new_sols = solutions_improvment2(new_sols);
+    new_sols = solutions_improvement2(new_sols);
 
     // elegimos las b/2 soluciones mas "malas".
     sort_solutions(new_sols);
@@ -621,6 +614,7 @@ void refset_rebuild()
 
 int get_difference(vector<solution> before, vector<solution> after)
 {
+    //cout << "get_difference()" << endl;
     int total = 0;
     for (int i = 0; i < b; i++) {
         total += abs(before[i].fitness-after[i].fitness);
