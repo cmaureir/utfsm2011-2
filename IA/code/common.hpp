@@ -46,9 +46,9 @@ extern int strip_width;
 extern int strip_height;
 
 // Evaluation function evaluations
-#define max_iter 10
+#define max_iter 100
 // Number of solutions in RefSet
-static int b = 20; //20
+static int b = 10; //2
 static int popsize = 5*b;
 
 #endif

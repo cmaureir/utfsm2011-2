@@ -1,17 +1,18 @@
 #include "common.hpp"
 
 void solutions_generation(vector<solution> &soluciones);
-void solutions_improvment(vector<solution> &tmp_sols);
+void solutions_improvement(vector<solution> &tmp_sols);
 void refset_build();
 void save_best_solution(vector<solution> tmp);
 bool is_in(solution tmp, vector<solution> tmp_sols);
 void solutions_combination();
-void refset_modification();
+void refset_modification(vector<solution> tmp_sols);
 void best_modification();
 void refset_rebuild();
 
 void fitness_calculation_one(solution &tmp);
 void fitness_calculation(vector<solution> &tmp);
+void print_one_solution(solution tmp);
 void print_solutions(vector<solution> tmp);
 bool struct_cmp(solution i, solution j);
 void sort_solutions(vector<solution> &tmp);
