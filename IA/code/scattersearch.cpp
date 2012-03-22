@@ -537,9 +537,6 @@ void refset_modification(vector<solution> tmp_sols)
     }
 }
 
-/*********
- * EXTRA *
- *********/
 solution shift_left(solution tmp)
 {
     int n = (int)tmp.items.size();
@@ -579,10 +576,6 @@ vector<solution> solutions_improvement2(vector<solution> tmp)
     }
     return final;
 }
-/*************
- * END EXTRA *
- *************/
-
 
 // Reconstruir RefSet:
 //  Eliminar las «b/2» soluciones en RefSet.
