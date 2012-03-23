@@ -1,23 +1,39 @@
-% TO DO
-% actualizar
-We presented  a brief review for the two-dimensional strip-packing
-considering different approaches to obtain an optimized solution.
+This paper has presented a scatter-search meta-heuristic,
+which contains different methodologies to improve
+the reference set used in each algorithm step,
+as the \emph{iterative shift}, a simple \emph{swap}
+and a PMX,
+obtaining good solutions in a few iterations.
 
-The idea of the next work is improve and expand this current review,
-and propose a new method, using the best ideas of the literature
-focused on solving the presented problem.
+The use of BLF as placement heuristics,
+give us the possibility to avoid big holes in the generated
+solutions, obtaining results near to the optimal.
+
+There is also a brief literature review,
+with some important actual publications
+that provide efficient solutions to the
+strip-packing problem.
+
+About the future work,
+there are several details in the scatter-search,
+which needs to be careful, overall
+controlling the relation between exploration
+and exploitation, because the presented solution
+has some bad behaviour with large instances,
+due two main issues:
+
+\begin{itemize}
+    \item Movements with a high computational cost,
+        which considering large instances, produce
+        solutions in a very slow way.
+    \item Due all the effort in each movement,
+        the solution has stagnation problems,
+        which can be solved, using for example,
+        parameters control.
+\end{itemize}
 
 Finally,
-we can obtain a simple scenario
-of some possibilities to start a new methodology
-to solve the strip-packing problem,
-considering different sections of the algorithm;
-the heuristic to insert the new items,
-a global technique to start to manipulate the items
-position proposal, and the movement of this technique.
-
-The publications described above
-has one important feature, which make the difference
-with other papers in the same topic,
-the idea is to combine some described ideas for create a whole
-new methodology.
+the next step has in consideration,
+to improve the proposal to obtain
+good solutions in less time that the actual
+implementation.
