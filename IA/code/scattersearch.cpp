@@ -329,7 +329,7 @@ void solutions_generation(vector<solution> &soluciones)
             ids[r] = tmp;
         }
 
-        // Adding suffled boxes to the solutions struct
+        // Adding shuffled boxes to the solutions struct
         for (j = 0; j < (int)bs.size(); j++) {
             tmp_sol.items.push_back(ids[j]);
         }

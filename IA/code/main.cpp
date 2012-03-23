@@ -20,9 +20,6 @@ int main(int argc, char *argv[]) {
 
     solutions_improvement(sols);
     refset_build();
-    //print_solutions(sols);
-    //cout << endl;
-    //print_solutions(refset);
 
     save_best_solution(refset);
     refset_tmp = refset;
@@ -47,23 +44,7 @@ int main(int argc, char *argv[]) {
         }
         /* A: end */
 
-        /* B: Verificamos cuantas veces el mejor fitness se repite */
-        if(best_fitness == best.fitness){
-            watch_best++;
-        }
-        else
-        {
-            watch_best = 0;
-        }
-
-        // Si se ha estancado el 10% de la iteraciones, terminamos
-        if (watch_best == max_iter*0.2){
-            iteration = max_iter;
-        }
-        /* B: end */
-
         refset_rebuild();
-        best_fitness = best.fitness;
         iteration++;
     } while (iteration < max_iter);
     print_one_solution(best);
