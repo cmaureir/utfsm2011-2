@@ -31,29 +31,48 @@ The used parameters are:
     \small
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        \textbf{Instance} & \textbf{Time} & \textbf{Height} & \textbf{Height (*)} \\ \hline
-        c1-p1 (HT01)      &               &                 & 20                  \\ \hline
-        c1-p2 (HT02)      &               &                 & 20                  \\ \hline
-        c1-p3 (HT03)      &               &                 & 20                  \\ \hline
-        c2-p1 (HT04)      &               &                 & 15                  \\ \hline
-        c2-p2 (HT05)      &               &                 & 15                  \\ \hline
-        c2-p3 (HT06)      &               &                 & 15                  \\ \hline
-        c3-p1 (HT07)      &               &                 & 30                  \\ \hline
-        c3-p2 (HT08)      &               &                 & 30                  \\ \hline
-        c3-p3 (HT09)      &               &                 & 30                  \\ \hline
-        c4-p1             &               &                 & 60                  \\ \hline
-        c4-p2             &               &                 & 60                  \\ \hline
-        c4-p3             &               &                 & 60                  \\ \hline
-        c5-p1             &               &                 & 90                  \\ \hline
-        c5-p2             &               &                 & 90                  \\ \hline
-        c5-p3             &               &                 & 90                  \\ \hline
-        c6-p1             &               &                 & 120                 \\ \hline
-        c6-p2             &               &                 & 120                 \\ \hline
-        c6-p3             &               &                 & 120                 \\ \hline
-        c7-p1             &               &                 & 240                 \\ \hline
-        c7-p2             &               &                 & 240                 \\ \hline
-        c7-p3             &               &                 & 240                 \\ \hline
+        \textbf{Instance} & \textbf{Elements} & \textbf{Time} & \textbf{Height} & \textbf{Height (*)} \\ \hline
+        c1-p1 (HT01)      & 17                & 0.29s          & 20              & 20                  \\ \hline
+        c1-p2 (HT02)      & 18                & 4.23s          & 21              & 20                  \\ \hline
+        c1-p3 (HT03)      & 17                & 0.21s          & 20              & 20                  \\ \hline
+        c2-p1 (HT04)      & 26                & 3.97s          & 16              & 15                  \\ \hline
+        c2-p2 (HT05)      & 26                & 4.17s          & 16              & 15                  \\ \hline
+        c2-p3 (HT06)      & 26                & 5.87s          & 16              & 15                  \\ \hline
+        c3-p1 (HT07)      & 29                & 28.73s         & 32              & 30                  \\ \hline
+        c3-p2 (HT08)      & 30                & 33.06s         & 33              & 30                  \\ \hline
+        c3-p3 (HT09)      & 29                & 40.08s         & 32              & 30                  \\ \hline
+        c4-p1             & 49                & 11m 3.01s      & 63              & 60                  \\ \hline
+        c4-p2             & 49                & 8m 57.31s      & 63              & 60                  \\ \hline
+        c4-p3             & 49                & 4m 0.39s       & 63              & 60                  \\ \hline
+        c5-p1             & 73                & 10m 20.90s     & 95              & 90                  \\ \hline
+        c5-p2             & 73                & 16m 3.84s      & 95              & 90                  \\ \hline
+        c5-p3             & 73                & 11m 13.9s      & 95              & 90                  \\ \hline
+        c6-p1             & 98                & 40m 15.9s      & 127             & 120                 \\ \hline
+        c6-p2             & 98                & 79m 51.48s     & 127             & 120                 \\ \hline
+        c6-p3             & 98                & 43m 34.53s     & 127             & 120                 \\ \hline
+        c7-p1 (+)         & 196               & $>$160m        & 172             & 240                 \\ \hline
+        c7-p2 (+)         & 197               & $>$160m        & 171             & 240                 \\ \hline
+        c7-p3 (+)         & 196               & $>$160m        & 172             & 240                 \\ \hline
     \end{tabular}
     \label{tab:results}
-    \caption{Hopper and Turton benchmark data. (*) means the optimal height}
+    \caption{Hopper and Turton benchmark data. (*) means the optimal height. (+) strange behaviour}
 \end{table}
+
+The present implementations shows a good behaviour with the first nine
+instances, in terms of execution time and obtained height.
+
+Consiring the classes 4,5 and 6,
+the execution time grows significantly,
+but the obtained solution height follows the same characteristics
+of the previous one, a difference between 3 and 5.
+
+The implemented function which perform the placement heuristics (BLF),
+takes around the $90\%$ of the execution time, and considering the amount of
+elements inf the last three instances, the algorithm was stopped in the 5th iteration,
+due the lack of performance.
+
+Another critical issue is that the most difficult instances
+produce a strange behaviour in the implemented solution,
+returning no valid heights. This point is a very important section
+which needs to be fixed in the future work.
+
