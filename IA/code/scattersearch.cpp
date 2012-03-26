@@ -167,6 +167,7 @@ void print_solutions(vector<solution> tmp){
 }
 
 void clear_strip(int **strip){
+    //cout << "clear_strip()" << endl;
     for (int i = 0; i < strip_width; i++) {
         for (int j = 0; j < strip_height; j++) {
             strip[i][j] = 0;
@@ -190,7 +191,7 @@ void sort_solutions(vector<solution> &tmp){
 // Buscar una posición para un elemento dentro del «strip»
 //  Utilizando heurística Bottom-Left
 bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **strip){
-
+    //cout << "search_fit()" << endl;
     bool fit = true;
 
     for (int y = 0; y < strip_height; y++)
@@ -199,14 +200,37 @@ bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **
         {
             if (strip[x][y]  == 0 && item_w + x - 1 < strip_width) // empty space
             {
-                for (b = y; b < y + item_h; b++)
+                for (a = x; a < x + item_w; a++)
                 {
-                    for (a = x; a < x + item_w; a++)
-                    {
-                        if (strip[a][b] != 0)
+                        if (strip[a][y] != 0)
+                        {
                             fit = false;
+                            break;
+                        }
+                        if (strip[a][y+item_h-1] != 0)
+                        {
+                            fit = false;
+                            break;
+                        }
+                }
+                if(fit)
+                {
+                    for (b = y; b < y + item_h; b++)
+                    {
+                            if (strip[x][b] != 0)
+                            {
+                                fit = false;
+                                break;
+                            }
+
+                            if (strip[x+item_w-1][b] != 0)
+                            {
+                                fit = false;
+                                break;
+                            }
                     }
                 }
+
                 if (fit){
                     a = x;
                     b = y;
@@ -215,6 +239,10 @@ bool search_fit(int item, int item_w, int item_h, int &a, int &b, int &h, int **
                     }
                     return fit;
                 }
+            }
+            else
+            {
+                x = x + bs[strip[x][y]-1].width;
             }
             fit = true;
         }
@@ -242,7 +270,7 @@ bool is_in(solution tmp, vector<solution> tmp_sols)
 
 // Posicionamiento de un item en el «strip»
 void place_item(int item, int item_w, int item_h, int a, int b, int **strip){
-
+    //cout << "place_item()" << endl;
     for (int i = a; i < a + item_w; i++) {
         for (int j = b; j < b + item_h; j++) {
             strip[i][j] = item;
@@ -253,6 +281,7 @@ void place_item(int item, int item_w, int item_h, int a, int b, int **strip){
 
 void fitness_calculation_one(solution &tmp){
 
+    //cout << "fitness_calculation_one()" << endl;
     int j;
     int n = (int)tmp.items.size();
     int item, item_w, item_h;
@@ -277,11 +306,13 @@ void fitness_calculation_one(solution &tmp){
     }
     tmp.p = (tmp.p*100)/(float)(strip_width * tmp.height);
     tmp.fitness = tmp.height;
+    //print_strip(tmp);
+    //getchar();
 }
 
 // Calculo del fitness para un conjunto de soluciones
 void fitness_calculation(vector<solution> &ss){
-
+    //cout << "fitness_calculation()" << endl;
     for (int i = 0; i < (int)ss.size(); i++)
     {
         fitness_calculation_one(ss[i]);

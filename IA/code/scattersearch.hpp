@@ -5,7 +5,7 @@ void read_input_file(string path);
 
 void print_input_file();
 void print_one_solution(solution tmp);
-void print_strip(vector<int> tmp, int h, int **strip);
+void print_strip(solution sol);
 void print_solutions(vector<solution> tmp);
 
 void clear_strip(int **strip);

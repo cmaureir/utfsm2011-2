@@ -48,6 +48,7 @@ int main(int argc, char *argv[]) {
         iteration++;
     } while (iteration < max_iter);
     print_one_solution(best);
+    print_strip(best);
 
     return 0;
 }
