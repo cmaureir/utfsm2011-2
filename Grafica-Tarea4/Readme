@@ -7,3 +7,21 @@ Integrantes:
 	- Javier Olivares O.
 	- Gabriel Zamora N.
 
+Este trabajo ha sido realizado en base al tutorial para Blender 2.62. 
+
+En primer lugar se agregó una figura con material y color. Luego se generó un plano donde estaría
+ubicada la primera figura. Mediante controladores lógicos conectados se creó la posibilidad de mover el
+objeto hacia adelante, además de controles que permiten el giro del objeto. 
+
+Tras lo anterior, se generó un cubo con material y color blanco, dándole textura.
+
+Una vez generadas ambas figuras se le agregó física a cada uno de ellos, permitiendo que exista caída, 
+choque e interacción entre ellos.
+
+
+Blender vs OpenGL
+=================
+
+La principal ventaja que presenta Blender por sobre OpenGL es la posibilidad de abstracción del lenguaje, lo 
+cual permite que personas que no posean conocimiento en programación, o en el lenguaje utilizado por OpenGL 
+puedan utilizar estas herramientas en variadas áreas distintas a la informática y computación.
