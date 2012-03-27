@@ -18,6 +18,19 @@ Tras lo anterior, se generó un cubo con material y color blanco, dándole textu
 Una vez generadas ambas figuras se le agregó física a cada uno de ellos, permitiendo que exista caída, 
 choque e interacción entre ellos.
 
+Para implementar la funcionalidad de las luces en la animación,
+se creo una luz inicial (A) en la primera capa, con una energía de 0.1,
+para que el modelo no estuviera completamente a oscuras.
+En la segunda capa, se creo una luz  (B) con energía de 1.0.
+
+La luz A, posee un keyboard sensor (tecla "0") que agrega a la escena de la capa 1,
+la luz B, provocando el efecto de encender una luz.
+
+Por su lado la luz B, posee dos keyboard sensors:
+-El primero (tecla "9") ejecuta un Actuator de "End object" unido con el controller "And"
+-El segundo (tecla "0") ejecuta un Actuator de "End object" unido con el controller "Or",
+ para asegurarse de que si está prendida la luz, no se vuelva a prender.
+
 
 Blender vs OpenGL
 =================
