@@ -44,6 +44,8 @@ extern solution best;
 
 extern int strip_width;
 extern int strip_height;
+extern int iteration;
+extern int loop;
 
 // Evaluation function evaluations
 #define max_iter 100

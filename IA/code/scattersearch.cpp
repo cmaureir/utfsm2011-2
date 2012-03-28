@@ -8,7 +8,8 @@ solution best;
 vector<box> bs;
 int strip_width;
 int strip_height;
-
+int iteration = 0;
+int loop = 0;
 /*********************
      BEGIN UTILS
  *********************/
@@ -328,7 +329,8 @@ void solutions_generation(vector<solution> &soluciones)
 {
     //cout << "solutions_generation()" << endl;
     // Fixed seed
-    srand(123456789);
+    srand(123456789*iteration);
+    cout << 123456789+iteration << endl;
     soluciones.clear();
 
     int i, j, k, r;
@@ -388,7 +390,7 @@ void solutions_improvement(vector<solution> &tmp_sols)
 
         // Swap
         before = tmp_sols[i].fitness;
-        while(counter < N/2)
+        while(counter < N/4)
         {
             a = (rand() % (N));
             b = (rand() % (N));
@@ -591,7 +593,7 @@ vector<solution> solutions_improvement2(vector<solution> tmp)
         int j = 0, v = 0, diff = 0;
         candidates.clear();
         tmp_sol = tmp[i];
-        while(j < (int)tmp_sol.items.size() - 1)
+        while(j < (int)tmp_sol.items.size()/3)
         {
             tmp_sol = shift_left(tmp_sol);
             fitness_calculation_one(tmp_sol);
@@ -624,6 +626,8 @@ void refset_rebuild()
     vector<solution> new_sols;
     solutions_generation(new_sols);
     fitness_calculation(new_sols);
+    //print_solutions(new_sols);
+    //getchar();
     new_sols = solutions_improvement2(new_sols);
 
     // elegimos las b/2 soluciones mas "malas".

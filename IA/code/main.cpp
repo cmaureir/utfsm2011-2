@@ -10,8 +10,8 @@ int main(int argc, char *argv[]) {
     read_input_file(path);
 
     // Algorithm
-    int iteration = 0;
-    int loop;
+    //int iteration = 0;
+    //int loop;
     int watch_best;
     int best_fitness;
 
@@ -27,14 +27,16 @@ int main(int argc, char *argv[]) {
     do {
         // número de nuevas soluciones en RefSet
         loop = 0;
-        while (get_difference(refset_tmp,refset) != 0 && iteration && loop < 5)
+        while (get_difference(refset_tmp,refset) != 0)
         {
             refset_tmp = refset;
             solutions_combination();
             fitness_calculation(new_set);
+            //new_set = solutions_improvement2(new_set);
             solutions_improvement(new_set);
             refset_modification(new_set);
             loop++;
+            cout << "\t" << loop << endl;
         }
         save_best_solution(refset);
 
@@ -46,9 +48,12 @@ int main(int argc, char *argv[]) {
 
         refset_rebuild();
         iteration++;
+        cout << iteration << endl;
+        print_one_solution(best);
+        //print_strip(best);
     } while (iteration < max_iter);
     print_one_solution(best);
-    print_strip(best);
+    //print_strip(best);
 
     return 0;
 }
