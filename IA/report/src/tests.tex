@@ -47,22 +47,27 @@ The used parameters are:
         c6-p1             & 98                & 13m 53.045s   & 127             & 120                 \\ \hline
         c6-p2             & 98                & 13m 36.017s   & 127             & 120                 \\ \hline
         c6-p3             & 98                & 13m 34.047s   & 127             & 120                 \\ \hline
-        c7-p1             & 196               & 151m 15.409s  & X             & 240                 \\ \hline
-        c7-p2             & 197               & 206m 4.504s   & X             & 240                 \\ \hline
-        c7-p3             & 196               & 236m 47.587s  & X             & 240                 \\ \hline
+        c7-p1             & 196               & 151m 15.409s  & 256             & 240                 \\ \hline
+        c7-p2             & 197               & 206m 4.504s   & 253             & 240                 \\ \hline
+        c7-p3             & 196               & 236m 47.587s  & 255             & 240                 \\ \hline
     \end{tabular}
     \label{tab:results}
     \caption{Best solutions using Hopper and Turton benchmark input 
 data. (*) User + Sys time, using \texttt{time} unix command. (**) means the optimal height.}
 \end{table}
 
-The present implementations shows a good behaviour with the first nine
+The present implementations shows a good behavior with the first nine
 instances, in terms of execution time and obtained height.
 
-Consiring the classes 4,5, 6 and 7,
+Considering the classes 4,5, and 6,
 the execution time grows significantly,
 but the obtained solution height follows the same characteristics
 of the previous one, a difference less than 10.
+
+The three biggest instances takes a lot of time,
+which indicates that the second solution improvement (\emph{shift}) has its cost,
+and the future work must focus on improve that process
+to obtain a properly execution time.
 
 The implemented function which perform the placement heuristics (BLF),
 takes around the $90\%$ of the execution time, and considering the amount of
