@@ -1,5 +1,67 @@
+\begin{frame}[fragile]
+    \frametitle{Methodology}
+    \framesubtitle{Algorithm}
+
+    \begin{algorithm}[H]
+        \scriptsize
+        \begin{algorithmic}
+            \STATE solution\_generation()
+            \STATE solution\_improvement()
+            \STATE refset\_build()
+            \STATE save\_the\_best\_solution()
+            \REPEAT
+                \WHILE {$\text{New solutions in RefSet}$}
+                    \STATE solution\_combination()
+                    \STATE solution\_improvement()
+                    \STATE refSet\_modification()
+                \ENDWHILE
+                \STATE save\_the\_best\_solution()
+                \STATE refset\_rebuild()
+            \UNTIL {iteration $<$ Max\_Iteration}
+        \end{algorithmic}
+        \caption{Scatter Search Procedure}
+        \label{alg:1}
+    \end{algorithm}
+
+\end{frame}
+
+
 \begin{frame}
     \frametitle{Methodology}
-    \framesubtitle{}
-    ...
+    \framesubtitle{Solution improvement}
+
+        \begin{figure}[h!t]
+            \centering
+            \includegraphics[width=0.3\textwidth]{../report/img/ia-swap}
+            \caption{Swap movement to improve solutions example. $N/2$ times.}
+            \label{fig:swap}
+        \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Methodology}
+    \framesubtitle{Solution combination}
+
+        \begin{figure}[h!t]
+            \centering
+            \includegraphics[width=0.8\textwidth]{../report/img/ia-pmx}
+            \caption{Partial Matching Crossover (PMX) example.}
+            \label{fig:pmx}
+        \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Methodology}
+    \framesubtitle{RefSet rebuild}
+
+        \begin{figure}[h!t]
+            \centering
+            \includegraphics[width=0.5\textwidth]{../report/img/ia-shift}
+            \caption{Shift example.}
+            \label{fig:shift}
+        \end{figure}
+
 \end{frame}

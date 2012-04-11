@@ -1,5 +1,15 @@
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{Problem Definition}
     \framesubtitle{}
-    ...
+
+    \begin{eqnarray}
+    \text{Minimize H}\nonumber \\
+    \text{Subject to}\nonumber \\
+    a_{i} + w_{i} \leq W, \forall i \in N \\
+    b_{i} + h_{i} \leq H, \forall i \in N \\
+    a_{i} + w_{i} \leq a_{j}\text{ or }a_{j} + w_{j} \leq a_{i}\text{ or }\nonumber\\
+    b_{i} + h_{i} \leq b_{j}\text{ or }b_{j} + h_{j} \leq b_{i}, \forall (i,j) \in N, i\neq j\\
+    a_{i} + b_{i} \geq 0. \forall i \in N.
+    \end{eqnarray}
+
 \end{frame}
