@@ -73,9 +73,9 @@
             c6-p1             & 98                & 13m 53.045s   & 127             & 120                 \\ \hline
             c6-p2             & 98                & 13m 36.017s   & 127             & 120                 \\ \hline
             c6-p3             & 98                & 13m 34.047s   & 127             & 120                 \\ \hline
-            c7-p1             & 196               & 151m 15.409s  & X             & 240                 \\ \hline
-            c7-p2             & 197               & 206m 4.504s   & X             & 240                 \\ \hline
-            c7-p3             & 196               & 236m 47.587s  & X             & 240                 \\ \hline
+            c7-p1             & 196               & 151m 15.409s  & 256             & 240                 \\ \hline
+            c7-p2             & 197               & 206m 4.504s   & 253             & 240                 \\ \hline
+            c7-p3             & 196               & 236m 47.587s  & 255             & 240                 \\ \hline
         \end{tabular}
         \label{tab:results}
         \caption{Best solutions using Hopper and Turton benchmark input 
@@ -718,6 +718,408 @@
 
     \begin{center}
 
+      \begin{tikzpicture}[scale=0.025]
+        \tikzstyle{every node}=[font=\tiny]
+        \begin{scope}
+       \foreach\x in {0,40,80,120,160,200, 256}{
+            \node at (-10,\x) {\x};
+            \draw (-3,\x) -- (0,\x);
+        }
+       \draw (0 ,256) -- (0,0) -- (160,0) -- (160,256);
+           \filldraw[blue,draw=black] (0,0) rectangle (10,4);
+
+           \filldraw[brown,draw=black] (10,0) rectangle (31,6);
+
+           \filldraw[cyan,draw=black] (31,0) rectangle (59,12);
+
+           \filldraw[gray,draw=black] (59,0) rectangle (86,8);
+
+           \filldraw[green,draw=black] (86,0) rectangle (92,19);
+
+           \filldraw[magenta,draw=black] (92,0) rectangle (118,4);
+
+           \filldraw[orange,draw=black] (118,0) rectangle (139,10);
+
+           \filldraw[purple,draw=black] (0,12) rectangle (70,25);
+
+           \filldraw[red,draw=black] (139,0) rectangle (151,10);
+
+           \filldraw[violet,draw=black] (92,4) rectangle (117,9);
+
+           \filldraw[yellow,draw=black] (0,6) rectangle (16,9);
+
+           \filldraw[blue,draw=black] (92,9) rectangle (109,30);
+
+           \filldraw[brown,draw=black] (151,0) rectangle (160,5);
+
+           \filldraw[cyan,draw=black] (16,6) rectangle (29,9);
+
+           \filldraw[gray,draw=black] (151,5) rectangle (155,22);
+
+           \filldraw[green,draw=black] (0,25) rectangle (53,36);
+
+           \filldraw[magenta,draw=black] (59,8) rectangle (67,11);
+
+           \filldraw[orange,draw=black] (70,8) rectangle (77,17);
+
+           \filldraw[purple,draw=black] (77,8) rectangle (86,30);
+
+           \filldraw[red,draw=black] (109,9) rectangle (118,16);
+
+           \filldraw[violet,draw=black] (118,10) rectangle (131,17);
+
+           \filldraw[yellow,draw=black] (131,10) rectangle (148,29);
+
+           \filldraw[blue,draw=black] (109,17) rectangle (120,28);
+
+           \filldraw[brown,draw=black] (53,30) rectangle (109,49);
+
+           \filldraw[cyan,draw=black] (120,17) rectangle (130,50);
+
+           \filldraw[gray,draw=black] (0,9) rectangle (12,12);
+
+           \filldraw[green,draw=black] (70,17) rectangle (77,25);
+
+           \filldraw[magenta,draw=black] (155,5) rectangle (157,9);
+
+           \filldraw[orange,draw=black] (148,22) rectangle (158,29);
+
+           \filldraw[purple,draw=black] (130,29) rectangle (144,48);
+
+           \filldraw[red,draw=black] (144,29) rectangle (157,42);
+
+           \filldraw[violet,draw=black] (0,36) rectangle (15,45);
+
+           \filldraw[yellow,draw=black] (109,28) rectangle (119,34);
+
+           \filldraw[blue,draw=black] (109,34) rectangle (120,55);
+
+           \filldraw[brown,draw=black] (15,36) rectangle (29,52);
+
+           \filldraw[cyan,draw=black] (130,48) rectangle (157,53);
+
+           \filldraw[gray,draw=black] (155,9) rectangle (159,17);
+
+           \filldraw[green,draw=black] (29,36) rectangle (38,45);
+
+           \filldraw[magenta,draw=black] (158,17) rectangle (160,30);
+
+           \filldraw[orange,draw=black] (12,9) rectangle (16,12);
+
+           \filldraw[purple,draw=black] (29,49) rectangle (80,59);
+
+           \filldraw[red,draw=black] (86,19) rectangle (92,24);
+
+           \filldraw[violet,draw=black] (120,53) rectangle (153,61);
+
+           \filldraw[yellow,draw=black] (86,24) rectangle (90,28);
+
+           \filldraw[blue,draw=black] (0,59) rectangle (54,69);
+
+           \filldraw[brown,draw=black] (80,49) rectangle (90,75);
+
+           \filldraw[cyan,draw=black] (0,52) rectangle (25,58);
+
+           \filldraw[gray,draw=black] (90,55) rectangle (110,74);
+
+           \filldraw[green,draw=black] (54,59) rectangle (65,75);
+
+           \filldraw[magenta,draw=black] (38,36) rectangle (52,44);
+
+           \filldraw[orange,draw=black] (144,42) rectangle (150,48);
+
+           \filldraw[purple,draw=black] (0,69) rectangle (54,82);
+
+           \filldraw[red,draw=black] (16,9) rectangle (26,12);
+
+           \filldraw[violet,draw=black] (110,61) rectangle (133,84);
+
+           \filldraw[yellow,draw=black] (133,61) rectangle (149,82);
+
+           \filldraw[blue,draw=black] (65,59) rectangle (74,68);
+
+           \filldraw[brown,draw=black] (0,4) rectangle (4,6);
+
+           \filldraw[cyan,draw=black] (148,10) rectangle (150,19);
+
+           \filldraw[gray,draw=black] (153,53) rectangle (159,73);
+
+           \filldraw[green,draw=black] (90,74) rectangle (106,81);
+
+           \filldraw[magenta,draw=black] (65,68) rectangle (74,87);
+
+           \filldraw[orange,draw=black] (74,81) rectangle (94,87);
+
+           \filldraw[purple,draw=black] (94,81) rectangle (107,114);
+
+           \filldraw[red,draw=black] (149,73) rectangle (158,93);
+
+           \filldraw[violet,draw=black] (0,82) rectangle (14,104);
+
+           \filldraw[yellow,draw=black] (14,82) rectangle (36,88);
+
+           \filldraw[blue,draw=black] (54,75) rectangle (64,83);
+
+           \filldraw[brown,draw=black] (36,82) rectangle (47,111);
+
+           \filldraw[cyan,draw=black] (107,84) rectangle (135,96);
+
+           \filldraw[gray,draw=black] (47,87) rectangle (74,93);
+
+           \filldraw[green,draw=black] (135,82) rectangle (146,90);
+
+           \filldraw[magenta,draw=black] (74,87) rectangle (84,110);
+
+           \filldraw[orange,draw=black] (14,88) rectangle (26,127);
+
+           \filldraw[purple,draw=black] (135,90) rectangle (146,119);
+
+           \filldraw[red,draw=black] (53,25) rectangle (64,28);
+
+           \filldraw[violet,draw=black] (47,93) rectangle (65,134);
+
+           \filldraw[yellow,draw=black] (65,114) rectangle (100,131);
+
+           \filldraw[blue,draw=black] (146,93) rectangle (159,101);
+
+           \filldraw[brown,draw=black] (0,45) rectangle (9,52);
+
+           \filldraw[cyan,draw=black] (64,25) rectangle (76,27);
+
+           \filldraw[gray,draw=black] (107,96) rectangle (128,117);
+
+           \filldraw[green,draw=black] (146,101) rectangle (159,117);
+
+           \filldraw[magenta,draw=black] (29,45) rectangle (53,49);
+
+           \filldraw[orange,draw=black] (26,111) rectangle (42,133);
+
+           \filldraw[purple,draw=black] (100,117) rectangle (133,133);
+
+           \filldraw[red,draw=black] (0,104) rectangle (12,112);
+
+           \filldraw[violet,draw=black] (65,131) rectangle (99,147);
+
+           \filldraw[yellow,draw=black] (133,119) rectangle (150,127);
+
+           \filldraw[blue,draw=black] (64,27) rectangle (74,29);
+
+           \filldraw[brown,draw=black] (90,49) rectangle (102,52);
+
+           \filldraw[cyan,draw=black] (0,127) rectangle (22,132);
+
+           \filldraw[gray,draw=black] (0,112) rectangle (14,125);
+
+           \filldraw[green,draw=black] (84,87) rectangle (91,112);
+
+           \filldraw[magenta,draw=black] (133,127) rectangle (159,136);
+
+           \filldraw[orange,draw=black] (26,88) rectangle (36,107);
+
+           \filldraw[purple,draw=black] (0,132) rectangle (8,163);
+
+           \filldraw[red,draw=black] (65,93) rectangle (73,100);
+
+           \filldraw[violet,draw=black] (8,132) rectangle (21,153);
+
+           \filldraw[yellow,draw=black] (21,133) rectangle (42,138);
+
+           \filldraw[blue,draw=black] (128,96) rectangle (135,105);
+
+           \filldraw[brown,draw=black] (99,133) rectangle (114,141);
+
+           \filldraw[cyan,draw=black] (114,133) rectangle (123,149);
+
+           \filldraw[gray,draw=black] (150,42) rectangle (157,48);
+
+           \filldraw[green,draw=black] (42,134) rectangle (65,140);
+
+           \filldraw[magenta,draw=black] (123,136) rectangle (146,153);
+
+           \filldraw[orange,draw=black] (65,100) rectangle (72,109);
+
+           \filldraw[purple,draw=black] (21,147) rectangle (72,160);
+
+           \filldraw[red,draw=black] (21,138) rectangle (39,144);
+
+           \filldraw[violet,draw=black] (146,136) rectangle (157,155);
+
+           \filldraw[yellow,draw=black] (157,30) rectangle (160,36);
+
+           \filldraw[blue,draw=black] (120,50) rectangle (129,53);
+
+           \filldraw[brown,draw=black] (72,153) rectangle (128,165);
+
+           \filldraw[cyan,draw=black] (128,155) rectangle (153,174);
+
+           \filldraw[gray,draw=black] (157,5) rectangle (160,9);
+
+           \filldraw[green,draw=black] (8,160) rectangle (29,179);
+
+           \filldraw[magenta,draw=black] (65,110) rectangle (84,114);
+
+           \filldraw[orange,draw=black] (39,140) rectangle (60,144);
+
+           \filldraw[purple,draw=black] (29,160) rectangle (52,167);
+
+           \filldraw[red,draw=black] (29,6) rectangle (31,12);
+
+           \filldraw[violet,draw=black] (9,45) rectangle (15,52);
+
+           \filldraw[yellow,draw=black] (72,147) rectangle (89,152);
+
+           \filldraw[blue,draw=black] (52,165) rectangle (73,184);
+
+           \filldraw[brown,draw=black] (150,117) rectangle (160,125);
+
+           \filldraw[cyan,draw=black] (73,165) rectangle (101,176);
+
+           \filldraw[gray,draw=black] (110,55) rectangle (119,59);
+
+           \filldraw[green,draw=black] (101,174) rectangle (131,181);
+
+           \filldraw[magenta,draw=black] (101,165) rectangle (126,172);
+
+           \filldraw[orange,draw=black] (74,75) rectangle (84,81);
+
+           \filldraw[purple,draw=black] (0,163) rectangle (8,196);
+
+           \filldraw[red,draw=black] (29,167) rectangle (37,208);
+
+           \filldraw[violet,draw=black] (37,167) rectangle (50,181);
+
+           \filldraw[yellow,draw=black] (131,174) rectangle (151,205);
+
+           \filldraw[blue,draw=black] (99,141) rectangle (108,146);
+
+           \filldraw[brown,draw=black] (73,176) rectangle (101,182);
+
+           \filldraw[cyan,draw=black] (73,182) rectangle (120,198);
+
+           \filldraw[gray,draw=black] (8,179) rectangle (29,187);
+
+           \filldraw[green,draw=black] (99,146) rectangle (110,151);
+
+           \filldraw[magenta,draw=black] (67,8) rectangle (70,11);
+
+           \filldraw[orange,draw=black] (74,59) rectangle (78,69);
+
+           \filldraw[purple,draw=black] (37,184) rectangle (58,191);
+
+           \filldraw[red,draw=black] (47,83) rectangle (59,87);
+
+           \filldraw[violet,draw=black] (58,184) rectangle (71,192);
+
+           \filldraw[yellow,draw=black] (8,187) rectangle (22,209);
+
+           \filldraw[blue,draw=black] (128,105) rectangle (134,117);
+
+           \filldraw[brown,draw=black] (37,191) rectangle (53,208);
+
+           \filldraw[cyan,draw=black] (53,198) rectangle (107,220);
+
+           \filldraw[gray,draw=black] (120,181) rectangle (130,197);
+
+           \filldraw[green,draw=black] (110,149) rectangle (121,153);
+
+           \filldraw[magenta,draw=black] (102,49) rectangle (108,54);
+
+           \filldraw[orange,draw=black] (151,174) rectangle (160,190);
+
+           \filldraw[purple,draw=black] (52,160) rectangle (68,165);
+
+           \filldraw[red,draw=black] (153,155) rectangle (159,169);
+
+           \filldraw[violet,draw=black] (107,205) rectangle (132,218);
+
+           \filldraw[yellow,draw=black] (132,205) rectangle (151,234);
+
+           \filldraw[blue,draw=black] (22,208) rectangle (35,222);
+
+           \filldraw[brown,draw=black] (74,69) rectangle (80,74);
+
+           \filldraw[cyan,draw=black] (35,208) rectangle (51,226);
+
+           \filldraw[gray,draw=black] (90,52) rectangle (96,55);
+
+           \filldraw[green,draw=black] (22,187) rectangle (28,199);
+
+           \filldraw[magenta,draw=black] (26,107) rectangle (36,111);
+
+           \filldraw[orange,draw=black] (151,190) rectangle (160,199);
+
+           \filldraw[purple,draw=black] (0,209) rectangle (12,230);
+
+           \filldraw[red,draw=black] (4,4) rectangle (7,6);
+
+           \filldraw[violet,draw=black] (12,209) rectangle (22,229);
+
+           \filldraw[yellow,draw=black] (107,218) rectangle (124,237);
+
+           \filldraw[blue,draw=black] (151,199) rectangle (160,215);
+
+           \filldraw[brown,draw=black] (91,87) rectangle (94,108);
+
+           \filldraw[cyan,draw=black] (0,196) rectangle (8,209);
+
+           \filldraw[gray,draw=black] (51,220) rectangle (96,227);
+
+           \filldraw[green,draw=black] (155,17) rectangle (158,22);
+
+           \filldraw[magenta,draw=black] (21,144) rectangle (38,147);
+
+           \filldraw[orange,draw=black] (107,198) rectangle (127,205);
+
+           \filldraw[purple,draw=black] (22,222) rectangle (34,242);
+
+           \filldraw[red,draw=black] (96,220) rectangle (106,228);
+
+           \filldraw[violet,draw=black] (151,215) rectangle (158,229);
+
+           \filldraw[yellow,draw=black] (34,227) rectangle (66,238);
+
+           \filldraw[blue,draw=black] (66,227) rectangle (87,241);
+
+           \filldraw[brown,draw=black] (124,234) rectangle (147,246);
+
+           \filldraw[cyan,draw=black] (53,192) rectangle (67,196);
+
+           \filldraw[gray,draw=black] (124,218) rectangle (130,231);
+
+           \filldraw[green,draw=black] (87,228) rectangle (100,248);
+
+           \filldraw[magenta,draw=black] (0,230) rectangle (18,236);
+
+           \filldraw[orange,draw=black] (25,52) rectangle (29,56);
+
+           \filldraw[purple,draw=black] (151,229) rectangle (159,239);
+
+           \filldraw[red,draw=black] (0,242) rectangle (54,255);
+
+           \filldraw[violet,draw=black] (22,199) rectangle (29,208);
+
+           \filldraw[yellow,draw=black] (0,236) rectangle (20,240);
+
+           \filldraw[blue,draw=black] (100,237) rectangle (113,255);
+
+           \filldraw[brown,draw=black] (89,147) rectangle (97,153);
+
+           \filldraw[cyan,draw=black] (100,228) rectangle (107,237);
+
+           \filldraw[gray,draw=black] (8,153) rectangle (15,157);
+
+           \filldraw[green,draw=black] (113,246) rectangle (158,256);
+
+           \filldraw[magenta,draw=black] (42,111) rectangle (46,128);
+
+           \filldraw[orange,draw=black] (54,238) rectangle (64,250);
+
+           \filldraw[purple,draw=black] (64,248) rectangle (92,253);
+
+           \filldraw[red,draw=black] (147,239) rectangle (159,246);
+
+     \end{scope}
+  \end{tikzpicture}
 
     \end{center}
 \end{frame}
